@@ -1,1 +1,5 @@
-Prototipe 1.0
+Prototipe 1.0 Frontend DSIB Visualization
+- Added proposed sidebar (still in development)
+- connect to yearly database
+
+Upload sql file inside prototipe folder, to your server database and change the database configuration in data2.php according to your database server.
