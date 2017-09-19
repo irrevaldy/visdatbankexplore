@@ -1,0 +1,11 @@
+svg {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.axis text{
+    font: Times;
+    font-size: 12px;
+    font-weight: bold;
+}
