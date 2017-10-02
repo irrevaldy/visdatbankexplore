@@ -2,125 +2,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-  <style>
-  body { font: 12px Arial;}
-  .axis path,
-  .axis line {
-      fill: none;
-      stroke: grey;
-      stroke-width: 1;
-      shape-rendering: crispEdges;
-  }
-  .bar {
-    fill: steelblue;
-    fill-opacity: .9;
-  }
-  .bar:hover
-  {
-    fill: brown;
-  }
-  </style>
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
+ <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
   <script type="text/javascript" src="jquery.min.js"></script>
   <script type="text/javascript" src="bootstrap.min.js"></script>
-  <script src="d3.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="d3.min.js"></script>
 	<!-- Stylesheets -->
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<!-- Fonts -->
 	<!-- Scripts -->
   <script src="js/close_menu.js"></script>
+  <script>
+  var expanded = false;
+  function showCheckBoxes() {
+    var checkboxes = document.getElementById("checkboxes");
+    if(!expanded) {
+      checkboxes.style.display = "block";
+      expanded = true;
+    }
+    else {
+      checkboxes.style.display = "none";
+      expanded = false;
+    }
+  }
+  </script>
+  <script src="js/d3.tip.v0.6.3.js"></script>
 	<title>Visualisasi DSIB</title>
-
-  <!-- Menu Toggle Script -->
 </head>
 <body>
-	<i class="fa fa-bars toggle_menu"></i>
-
-	<div class="sidebar_menu" >
-		<i class="fa fa-times"></i>
-		<center>
-			<a href="#"><h1 class="boxed_item">Visualisasi DSIB <span class="logo_bold"></span></h1>
-			</a>
-		</center>
-
-		<ul class="navigation_section" >
-			<li class="navigation_item" id="profile">
-				<a href="upload.php">Upload Data</a>
-			</li>
-      <li class="navigation_item" id="profile" selected>
-				<a href="index.php">Visualisasi</a>
-			</li>
-      <li class="navigation_item" id="profile">
-        <a href="upload.php">Simulasi</a>
-      </li>
-      <li class="navigation_item" id="profile">
-				<a href="upload.php">Clustering</a>
-			</li>
-      <br>
-      <li class="navigation_item" id="sort">
-				<label><input type="checkbox"> Sort Values</label>
-			</li>
-      <li class="navigation_item" id="destroysession" style="color:black">
-          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <input type="submit" name="submito" value=" Reset Filter ">
-          </form>
-          <?php
-          if(isset($_POST['submito'])){
-          $_SESSION['kelkomponen'] = 'dsibscore';
-          $_SESSION['kelkepemilikan'] = 'All';
-          $_SESSION['kelbuku'] = 'All';
-          $_SESSION['dsibflag'] = 'All';
-          $_SESSION['waktu'] = date('Y-m');
-          $_SESSION['month'] = date('m');
-          $_SESSION['year'] = date('Y');
-          }
-          ?>
-			</li>
-      <li class="navigation_item" id="kelkomponen">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <select name="kelkomponen[]" onchange="this.form.submit();" style="color:black">
-        <?php echo get_radio_buttons0($_SESSION['kelkomponen']); ?>
-      </select>
-        </form>
-      </li>
-      <li class="navigation_item" id="kelkepemilikan">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <select name="kelkepemilikan[]" onchange="this.form.submit();" style="color:black">
-        <?php echo get_radio_buttons($_SESSION['kelkepemilikan']); ?>
-      </select>
-        </form>
-      </li>
-      <li class="navigation_item" id="kelbuku">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <select name="kelbuku[]" onchange="this.form.submit();" style="color:black">
-        <?php echo get_radio_buttons2($_SESSION['kelbuku']); ?>
-      </select>
-        </form>
-      </li>
-      <li class="navigation_item" id="dsibflag">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <select name="dsibflag[]" onchange="this.form.submit();" style="color:black">
-        <?php echo get_radio_buttons3($_SESSION['dsibflag']); ?>
-      </select>
-        </form>
-      </li>
-      <li class="navigation_item" id="waktu">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <label>Month</label>
-          <input style="color:black"  onchange="this.form.submit();" type="month" value="<?php echo $_SESSION['year'] ?>-<?php echo $_SESSION['month'] ?>" name="waktu">
-        </form>
-      </li>
-		</ul>
-	</div><!-- End of sidebar -->
-
-
-
+<?php include "php/header.php"; ?>
+<?php include "php/sidebar.php"; ?>
+<div class="main">
   <script>
-  var margin = {top: 20, right: 10, bottom: 100, left:100},
+  var clickedId = '<?php echo $_SESSION['kelkomponen']; ?>';
+  var selected_kelkepemilikan = '<?php echo $_SESSION['kelkepemilikan']; ?>';
+  var selected_kelbuku = '<?php echo $_SESSION['kelbuku']; ?>';
+  var selected_dsibflag = '<?php echo $_SESSION['dsibflag']; ?>';
+  var selected_month = '<?php echo $_SESSION['month']; ?>';
+  var selected_year = '<?php echo $_SESSION['year']; ?>';
+
+  var margin = {top: 120, right: 10, bottom: 100, left:100},
       width = 1200 - margin.right - margin.left,
-      height = 500 - margin.top - margin.bottom;
+      height = 600 - margin.top - margin.bottom;
 
   var xScale = d3.scale.ordinal()
       .rangeRoundBands([0,width], 0.2, 0.2);
@@ -137,6 +61,45 @@
       .scale(yScale)
       .orient("left");
 
+  var tip = d3.tip()
+    .attr("class", "d3-tip")
+    .offset([-10, 0])
+    .html(function(d) {
+      if(clickedId == 'dsibscore')
+      {
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.dsibscore;
+      }
+      else if(clickedId == 'sizescore'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.sizescore;
+      }
+      else if(clickedId == 'interconnectedness'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.interconnectedness;
+      }
+      else if(clickedId == 'ifsascore'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.ifsascore;
+      }
+      else if(clickedId == 'ifsl'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.ifsl;
+      }
+      else if(clickedId == 'debts'){
+          return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.debts;
+      }
+      else if(clickedId == 'complexitys'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.complexitys;
+      }
+      else if(clickedId == 'complexitycs'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.complexitycs;
+      }
+      else if(clickedId == 'countryss'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.countryss;
+      }
+      else if(clickedId == 'substitutabilityscore'){
+        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.substitutabilityscore;
+      }
+
+    });
+
+
   var svg = d3.select("body")
       .append("svg")
         .attr ({
@@ -144,16 +107,14 @@
           "height": height + margin.top + margin.bottom
         })
       .append("g")
-        .attr("transform","translate(" + margin.left + "," + margin.right + ")");
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-        var incomingdata;
-        var clickedId = '<?php echo $_SESSION['kelkomponen']; ?>';
-        var selected_kelkepemilikan = '<?php echo $_SESSION['kelkepemilikan']; ?>';
-        var selected_kelbuku = '<?php echo $_SESSION['kelbuku']; ?>';
-        var selected_dsibflag = '<?php echo $_SESSION['dsibflag']; ?>';
-        var selected_month = '<?php echo $_SESSION['month']; ?>';
-          var selected_year = '<?php echo $_SESSION['year']; ?>';
-        d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepemilikan  + "&kelbuku=" + selected_kelbuku + "&dsibflag=" + selected_dsibflag + "&month=" + selected_month + "&year=" + selected_year, function(error,data) {
+
+  svg.call(tip);
+
+  var incomingdata;
+
+  d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepemilikan  + "&kelbuku=" + selected_kelbuku + "&dsibflag=" + selected_dsibflag + "&month=" + selected_month + "&year=" + selected_year, function(error,data) {
 
     if(error) console.log("Error: data not loaded!");
     incomingdata = data;
@@ -166,39 +127,39 @@
         console.log(d.dsibscore);   // use console.log to confirm
       }
       else if(clickedId == 'sizescore'){
-        d.dsibscore = +d.sizescore;       // try removing the + and see what the console prints
+        d.sizescore = +d.sizescore;       // try removing the + and see what the console prints
         console.log(d.sizescore);   // use console.log to confirm
       }
       else if(clickedId == 'interconnectedness'){
-        d.dsibscore = +d.interconnectedness;       // try removing the + and see what the console prints
+        d.interconnectedness = +d.interconnectedness;       // try removing the + and see what the console prints
         console.log(d.interconnectedness);   // use console.log to confirm
       }
       else if(clickedId == 'ifsascore'){
-        d.dsibscore = +d.ifsascore;       // try removing the + and see what the console prints
+        d.ifsascore = +d.ifsascore;       // try removing the + and see what the console prints
         console.log(d.ifsascore);   // use console.log to confirm
       }
       else if(clickedId == 'ifsl'){
-        d.dsibscore = +d.ifsl;       // try removing the + and see what the console prints
+        d.ifsl = +d.ifsl;       // try removing the + and see what the console prints
         console.log(d.ifsl);   // use console.log to confirm
       }
       else if(clickedId == 'debts'){
-        d.dsibscore = +d.debts;       // try removing the + and see what the console prints
+        d.debts = +d.debts;       // try removing the + and see what the console prints
         console.log(d.debts);   // use console.log to confirm
       }
       else if(clickedId == 'complexitys'){
-        d.dsibscore = +d.complexitys;       // try removing the + and see what the console prints
+        d.complexitys = +d.complexitys;       // try removing the + and see what the console prints
         console.log(d.complexitys);   // use console.log to confirm
       }
       else if(clickedId == 'complexitycs'){
-        d.dsibscore = +d.complexitycs;       // try removing the + and see what the console prints
+        d.complexitycs = +d.complexitycs;       // try removing the + and see what the console prints
         console.log(d.complexitycs);   // use console.log to confirm
       }
       else if(clickedId == 'countryss'){
-        d.dsibscore = +d.countryss;       // try removing the + and see what the console prints
+        d.countryss = +d.countryss;       // try removing the + and see what the console prints
         console.log(d.countryss);   // use console.log to confirm
       }
       else if(clickedId == 'substitutabilityscore'){
-        d.dsibscore = +d.substitutabilityscore;       // try removing the + and see what the console prints
+        d.substitutabilityscore = +d.substitutabilityscore;       // try removing the + and see what the console prints
         console.log(d.substitutabilityscore);   // use console.log to confirm
       }
     });
@@ -237,20 +198,60 @@
         yScale.domain([0, d3.max(data, function(d) { return d.substitutabilityscore; } ) ]);
     }
 
+    var countdata =svg.selectAll("text").data(data).enter().size();
+  //console.log(countdata);
+
+    if(countdata < 50)
+    {
+      svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .attr("y", 50)
+            .attr("x", 1100)
+            .attr("dx", "-.8em")
+            .attr("dy", ".25em")
+            .attr("transform", "rotate(-45)" )
+            .attr("font-size", "10px")
+            .style("text-anchor", "end");
+
+        svg.append("text")
+              .attr("y", 425)
+              .attr("x", 1100)
+              .attr("dx", "-.8em")
+              .attr("dy", ".25em")
+              .attr("transform", "rotate(0)" )
+              .attr("font-size", "12px")
+              .attr("font-weight", "bold")
+              .style("text-anchor", "end")
+              .text("Bank ID");
+    }
+    else
+    {
+      svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .attr("y", 50)
+            .attr("x", 1100)
+            .attr("dx", "-.8em")
+            .attr("dy", ".25em");
+
+
+      svg.append("text")
+            .attr("y", 425)
+            .attr("x", 1100)
+            .attr("dx", "-.8em")
+            .attr("dy", ".25em")
+            .attr("transform", "rotate(0)" )
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold")
+            .style("text-anchor", "end")
+            .text("Bank ID");
+    }
+
     // Draw xAxis and position the label
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-        .append("text")
-        .attr("y", 50)
-        .attr("x", 1100)
-        .attr("dx", "-.8em")
-        .attr("dy", ".25em")
-        .attr("transform", "rotate(0)" )
-        .attr("font-size", "10px")
-        .style("text-anchor", "end")
-        .text("Bank ID");
 
 
     // Draw yAxis and postion the label
@@ -275,9 +276,11 @@
             .attr("class", "bar")
             .attr("x", function(d) { return xScale(d.idbank); })
             .attr("width", xScale.rangeBand())
-
             .attr("y", function(d) { return yScale(d.dsibscore); })
-            .attr("height", function(d) { return height - yScale(d.dsibscore); });
+            .attr("height", function(d) { return height - yScale(d.dsibscore); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'sizescore') {
           svg.selectAll(".bar")
@@ -288,7 +291,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.sizescore); })
-            .attr("height", function(d) { return height - yScale(d.sizescore); });
+            .attr("height", function(d) { return height - yScale(d.sizescore); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'interconnectedness'){
           svg.selectAll(".bar")
@@ -299,7 +305,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.interconnectedness); })
-            .attr("height", function(d) { return height - yScale(d.interconnectedness); });
+            .attr("height", function(d) { return height - yScale(d.interconnectedness); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'ifsascore'){
           svg.selectAll(".bar")
@@ -310,7 +319,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.ifsascore); })
-            .attr("height", function(d) { return height - yScale(d.ifsascore); });
+            .attr("height", function(d) { return height - yScale(d.ifsascore); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'ifsl'){
           svg.selectAll(".bar")
@@ -321,7 +333,11 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.ifsl); })
-            .attr("height", function(d) { return height - yScale(d.ifsl); });
+            .attr("height", function(d) { return height - yScale(d.ifsl); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
+
         }
         else if(clickedId == 'debts'){
           svg.selectAll(".bar")
@@ -332,7 +348,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.debts); })
-            .attr("height", function(d) { return height - yScale(d.debts); });
+            .attr("height", function(d) { return height - yScale(d.debts); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'complexitys'){
           svg.selectAll(".bar")
@@ -343,7 +362,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.complexitys); })
-            .attr("height", function(d) { return height - yScale(d.complexitys); });
+            .attr("height", function(d) { return height - yScale(d.complexitys); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'complexitycs'){
           svg.selectAll(".bar")
@@ -354,7 +376,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.complexitycs); })
-            .attr("height", function(d) { return height - yScale(d.complexitycs); });
+            .attr("height", function(d) { return height - yScale(d.complexitycs); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'countryss'){
           svg.selectAll(".bar")
@@ -365,7 +390,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.countryss); })
-            .attr("height", function(d) { return height - yScale(d.countryss); });
+            .attr("height", function(d) { return height - yScale(d.countryss); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
         else if(clickedId == 'substitutabilityscore'){
           svg.selectAll(".bar")
@@ -376,7 +404,10 @@
             .attr("width", xScale.rangeBand())
 
             .attr("y", function(d) { return yScale(d.substitutabilityscore); })
-            .attr("height", function(d) { return height - yScale(d.substitutabilityscore); });
+            .attr("height", function(d) { return height - yScale(d.substitutabilityscore); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
         }
 
     d3.select("input").on("change", change);
@@ -470,6 +501,7 @@
       }
 
 
+
     svg.selectAll(".bar")
         .sort(function(a, b) { return x0(a.idbank) - x0(b.idbank); });
 
@@ -487,6 +519,21 @@
     }
   }
   );
+</script>
+</div>
+<script>
+var expanded = false;
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if(!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  }
+  else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
 </script>
 </body>
 </html>

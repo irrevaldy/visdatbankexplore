@@ -1,7 +1,7 @@
 <?php
  if(!empty($_FILES["bank_file"]["name"]))
  {
-      $connect = mysqli_connect("localhost", "root", "", "systemicriskbi");
+      include "php/dbconnect.php";
       $output = '';
       $allowed_ext = array("csv");
       $extension = end(explode(".", $_FILES["bank_file"]["name"]));
@@ -19,13 +19,13 @@
                   $dsibscore = mysqli_real_escape_string($connect, $row[5]);
                 $query = "
                 INSERT INTO indikatorresiko
-                     (timestamp, idbank, kel.kepemilikan, kel.buku, dsibflag, dsibscore)
+                     (timestamp, idbank, kelkepemilikan, kelbuku, dsibflag, dsibscore)
                      VALUES ('$timestamp', '$idbank', '$kelkepemilikan', '$kelbuku', '$dsibflag','$dsibscore')
                 ";
-                mysqli_query($connect, $query);
+                mysqli_query($server, $query);
            }
            $select = "SELECT * FROM indikatorresiko ORDER BY id DESC";
-           $result = mysqli_query($connect, $select);
+           $result = mysqli_query($server, $select);
            $output .= '
                 <table class="table table-bordered">
                      <tr>
@@ -43,10 +43,10 @@
                      <tr>
                           <td>'.$row["timestamp"].'</td>
                           <td>'.$row["idbank"].'</td>
-                          <td>'.$row["kel.kepemilikan"].'</td>
-                          <td>'.$row["kel.buku"].'</td>
+                          <td>'.$row["kelkepemilikan"].'</td>
+                          <td>'.$row["kelbuku"].'</td>
                           <td>'.$row["dsibflag"].'</td>
-                          <td>'.$row["dsibscore"].'</td>  
+                          <td>'.$row["dsibscore"].'</td>
                      </tr>
                 ';
            }
