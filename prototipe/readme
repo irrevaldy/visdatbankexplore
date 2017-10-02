@@ -1,5 +1,5 @@
-Prototype version 1.0 Frontend DSIB Visualization (19-9-2017)
-- Added proposed sidebar (still in development)
-- connect to yearly database
+Prototype version 1.1 (2-10-17)
 
-Upload sql file inside prototipe folder, to your server database and change the database configuration in data2.php according to your database server.
+
+Upload systemicriskbi.sql from prototipe folder.
+Database connection can be set globally from php/dbconnect.php
