@@ -1,4 +1,6 @@
 <?php
+    include "dbconnect.php";
+
     $attrib = $_GET['id'];
     $kelkepemilikan = $_GET['kelkepemilikan'];
     $kelbuku = $_GET['kelbuku'];
@@ -6,12 +8,7 @@
     $month = $_GET['month'];
     $year = $_GET['year'];
 
-    $username = "root";
-    $password = "";
-    $host = "localhost";
-    $database = "systemicriskbi";
 
-    $server = mysqli_connect($host, $username, $password, $database);
     if($kelkepemilikan =='All' && $kelbuku == 'All' && $dsibflag == 'All')
     {
           $myquery = "SELECT idbank, $attrib FROM indikatorresiko where MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
