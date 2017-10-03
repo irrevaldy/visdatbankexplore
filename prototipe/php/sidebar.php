@@ -35,6 +35,7 @@
         $_SESSION['waktu'] = date('Y-m');
         $_SESSION['month'] = date('m');
         $_SESSION['year'] = date('Y');
+        $_SESSION['charttype'] = 'Bar';
         }
         ?>
     </li>

@@ -29,6 +29,10 @@ if(empty($_SESSION['year']))
 {
   $_SESSION['year'] = date("Y");
 }
+if(empty($_SESSION['chartype']))
+{
+  $_SESSION['charttype'] = 'bar';
+}
 
 function get_radio_buttons0($select)
 {
@@ -105,6 +109,25 @@ function get_radio_buttons3($select)
   return $str;
 }
 
+function get_radio_buttons4($radio)
+{
+
+  $btns=array('Bar' => 'bar','Line'=>'line');
+  $str='';
+  while(list($k,$v)=each($btns))
+  {
+    if($radio==$v)
+    {
+      $str.='&nbsp;&nbsp;<input type="radio" checked onchange="this.form.submit();" name="charttype[]" value="'.$v.'"/>'.$k;
+    }
+    else
+    {
+      $str.='&nbsp;&nbsp;<input type="radio" onchange="this.form.submit();" name="charttype[]" value="'.$v.'"/>'.$k;
+    }
+  }
+  return $str;
+}
+
 if(isset($_POST['kelkomponen']))
 {
   $selected_kelkomponen= $_POST['kelkomponen'][0];
@@ -128,11 +151,6 @@ if(isset($_POST['dsibflag']))
   $selected_dsibflag= $_POST['dsibflag'][0];
   $_SESSION['dsibflag'] = $selected_dsibflag;
 }
-if(isset($_POST['dsibflag']))
-{
-  $selected_dsibflag= $_POST['dsibflag'][0];
-  $_SESSION['dsibflag'] = $selected_dsibflag;
-}
 if(isset($_POST['waktu']))
 {
   $selected_waktu= $_POST['waktu'];
@@ -141,5 +159,10 @@ if(isset($_POST['waktu']))
   $_SESSION['waktu'] = $selected_waktu;
   $_SESSION['month'] = date('m', strtotime($_SESSION['waktu']));
   $_SESSION['year'] = date('Y', strtotime($_SESSION['waktu']));
+}
+if(isset($_POST['charttype']))
+{
+  $selected_charttype= $_POST['charttype'][0];
+  $_SESSION['charttype'] = $selected_charttype;
 }
 ?>
