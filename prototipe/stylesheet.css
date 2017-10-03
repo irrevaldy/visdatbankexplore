@@ -17,6 +17,12 @@ body { font: 12px Arial;}
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+path {
+  stroke: steelblue;
+  stroke-width: 1;
+  fill: none;
+}
+
 .bar {
   fill: steelblue;
   fill-opacity: .9;
@@ -53,4 +59,19 @@ body { font: 12px Arial;}
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+.circle {
+  fill: steelblue;
+}
+.circle:hover {
+  fill: yellow;
+}
+.charto
+{
+  margin-left: 1200px;
 }
