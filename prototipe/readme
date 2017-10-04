@@ -1,5 +1,8 @@
 Prototype version 1.1 (2-10-17)
+-added line chart
 
+ver 1.2 (4-10-17_
+-fix bug in upload menu
 
 Upload systemicriskbi.sql from prototipe folder.
 Database connection can be set globally from php/dbconnect.php
