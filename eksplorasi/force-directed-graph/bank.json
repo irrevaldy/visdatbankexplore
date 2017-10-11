@@ -1,0 +1,175 @@
+{
+ "name": "bank indonesia",
+ "img": "images/bi.jpg",
+ "children": [
+  {
+   "name": "public bank",
+   "children": [
+    {
+      "hero": "BNI",
+      "name": "Bank Nasional Indonesia",
+      "link": "http://bni.co.idn",
+      "img":  "images/bni.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "BCA",
+      "name": "Bank Central Indonesia",
+      "link": "http://klikbca.com",
+      "img":  "images/bca.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Mandiri",
+      "name": "Bank Mandiri",
+      "link": "http://bankmandiri.co.id",
+      "img":  "images/mandiri.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bukopin",
+      "name": "Bank Bukopin",
+      "link": "http://bukopin.co,id",
+      "img":  "images/bukopin.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "BTN",
+      "name": "Bank Tabungan Indonesia",
+      "link": "http://btn.co.id",
+      "img":  "images/btn.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Panin Bank",
+      "name": "Bank Panin",
+      "link": "http://panin.co.id",
+      "img":  "images/panin.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "BRI",
+      "name": "Bank Rakyat Indonesia",
+      "link": "http://bri.co.id",
+      "img":  "images/bri.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "BII",
+      "name": "Bank International Indonesia",
+      "link": "http://maybank.co.id",
+      "img":  "images/bii.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "BJB",
+      "name": "Bank Jabar",
+      "link": "http://bankbjb.co,id",
+      "img":  "images/bjb.jpg",
+      "size": 40000
+    }
+  ]
+  },
+  {
+   "name": "Private Bank",
+   "children": [
+    {
+      "hero": "CIMB",
+      "name": "CIMB Niaga",
+      "link": "http://cimbclicks.co.id",
+      "img":  "images/cimb.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bank DKI",
+      "name": "Bank DKI",
+      "link": "http://bankdki.co.id",
+      "img":  "images/bankdki.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Permata",
+      "name": "Bank Permata",
+      "link": "http://permatabank.com",
+      "img":  "images/permata.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Danamon",
+      "name": "Bank Danamon",
+      "link": "http://danamon.com",
+      "img":  "images/danamon.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "ANZ",
+      "name": "Bank ANZ",
+      "link": "http://anz.com",
+      "img":  "images/anz.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Artha Graha",
+      "name": "Bank Artha Graha",
+      "link": "http://arthagraha.com",
+      "img":  "images/arthagraha.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Mayora",
+      "name": "Bank Mayora",
+      "link": "http://bankmayora.com",
+      "img":  "images/mayora.jpg",
+      "size": 40000
+    }
+   ]
+  },
+  {
+   "name": "Region Bank",
+   "children": [
+    {
+      "hero": "Bank Sumut",
+      "name": "Bank Sumut",
+      "link": "http://banksumut.com",
+      "img":  "images/sumut.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bank Jambi",
+      "name": "Bank Jambi",
+      "link": "http://bankjambi.com",
+      "img":  "images/jambi.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bank Jatim",
+      "name": "Bank Jatim",
+      "link": "http://bankjatim.co.id",
+      "img":  "images/jatim.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bank Kaltim",
+      "name": "Bank Kaltim",
+      "link": "http://bankkaltim.co.id",
+      "img":  "images/kaltim.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bank Sulut",
+      "name": "Bank Sulut",
+      "link": "http://banksulutgo.co.id",
+      "img":  "images/sulut.jpg",
+      "size": 40000
+    },
+    {
+      "hero": "Bank Papua",
+      "name": "Bank Papua",
+      "link": "http://bankpapua.co.id",
+      "img":  "images/papua.jpg",
+      "size": 40000
+    }
+   ]
+  }
+ ]
+}

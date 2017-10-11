@@ -1,0 +1,15 @@
+{
+  "development": {
+    "use_env_variable": "DATABASE_URL"
+  },
+  "test": {
+    "dialect": "postgres",
+    "storage": ":memory:"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialectOptions": {
+      "ssl": true
+    }
+  }
+}
