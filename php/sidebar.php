@@ -1,10 +1,6 @@
-
 <i class="fa fa-bars toggle_menu"></i>
 <div class="sidebar">
-
   <i class="fa fa-times"></i>
-
-
   <ul class="navigation_section" >
     <li class="navigation_item" id="profile">
       <a href="upload.php">Upload Data</a>
@@ -12,15 +8,14 @@
     <li class="navigation_item" id="profile" selected>
       <a href="index.php">Visualisasi</a>
     </li>
-    <li class="navigation_item" id="profile">
+    <<li class="navigation_item" id="profile">
       <a href="index.php">Simulasi</a>
     </li>
     <li class="navigation_item" id="profile">
       <a href="index.php">Clustering</a>
     </li>
-    <br>
     <li class="navigation_item" id="sort">
-      <label><input type="checkbox"> Sort Values</label>
+      <label><input type="checkbox">Sort Values</label>
     </li>
     <li class="navigation_item" id="destroysession" style="color:black">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -35,11 +30,11 @@
         $_SESSION['waktu'] = date('Y-m');
         $_SESSION['month'] = date('m');
         $_SESSION['year'] = date('Y');
-        $_SESSION['charttype'] = 'Bar';
+        $_SESSION['charttype'] = 'bar';
         }
         ?>
     </li>
-    <li class="navigation_item" id="perbank" >
+   <li class="navigation_item" id="perbank" >
     <form>
       <div class="multiselect">
         <div class="selectBox" onclick="showCheckboxes()">
@@ -60,10 +55,10 @@
         </div>
       </div>
     </form>
-    </li>
+  </li>
     <li class="navigation_item" id="kelkomponen">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <select id=kelkomponenn name="kelkomponen[]" onchange="this.form.submit(); getClickedID();" style="color:black">
+        <select id="kelkomponenn" name="kelkomponen[]" onchange="this.form.submit(); getClickedID();" style="color:black">
       <?php echo get_radio_buttons0($_SESSION['kelkomponen']); ?>
     </select>
       </form>
