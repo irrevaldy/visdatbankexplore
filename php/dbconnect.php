@@ -1,8 +1,8 @@
 <?php
-$username = "id3069449_root";
-$password = "airwisata14";
+$username = "root";
+$password = "";
 $host = "localhost";
-$database = "id3069449_systemicriskbi";
+$database = "systemicriskbi";
 
 $server = mysqli_connect($host, $username, $password, $database);
 ?>
