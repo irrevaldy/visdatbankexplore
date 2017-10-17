@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Design</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href="css/bootstrap.min.css">
   <link rel="stylesheet/less" type="text/less" href="css/sidebar.less" />
   <script src="js/less-v2.js"></script>
   <script src="js/jquery-3.2.1.min.js"></script>
