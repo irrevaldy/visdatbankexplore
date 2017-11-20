@@ -11,9 +11,9 @@
     <li class="navigation_item" id="profile">
       <a href="index2.php">Simulasi</a>
     </li>
-    <li class="navigation_item" id="profile">
+    <!--<li class="navigation_item" id="profile">
       <a href="index.php">Clustering</a>
-    </li>
+    </li>-->
     <li class="navigation_item" id="sort">
       <label><input type="checkbox">Sort Values</label>
     </li>
@@ -34,7 +34,7 @@
         }
         ?>
     </li>
-   <li class="navigation_item" id="perbank" >
+  <!-- <li class="navigation_item" id="perbank" >
     <form>
       <div class="multiselect">
         <div class="selectBox" onclick="showCheckboxes()">
@@ -55,7 +55,7 @@
         </div>
       </div>
     </form>
-  </li>
+  </li>-->
     <li class="navigation_item" id="kelkomponen">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <select id="kelkomponenn" name="kelkomponen[]" onchange="this.form.submit(); getClickedID();" style="color:black">
@@ -77,13 +77,13 @@
     </select>
       </form>
     </li>
-    <li class="navigation_item" id="dsibflag">
+    <!--<li class="navigation_item" id="dsibflag">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <select name="dsibflag[]" onchange="this.form.submit();" style="color:black">
       <?php echo get_radio_buttons3($_SESSION['dsibflag']); ?>
     </select>
       </form>
-    </li>
+    </li>-->
     <li class="navigation_item" id="waktu">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <label>Month</label>

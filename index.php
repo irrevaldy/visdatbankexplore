@@ -45,8 +45,6 @@ var expanded = false;
 	<title>Visualisasi DSIB</title>
 </head>
 <body>
-  <?php include "php/header.php"; ?>
-  <?php include "php/sidebar.php"; ?>
   <script>
   var clickedId = '<?php echo $_SESSION['kelkomponen']; ?>';
   var selected_ownership= '<?php echo $_SESSION['ownership']; ?>';
@@ -55,6 +53,8 @@ var expanded = false;
   var selected_month = '<?php echo $_SESSION['month']; ?>';
   var selected_year = '<?php echo $_SESSION['year']; ?>';
   </script>
+    <?php include "php/sidebar.php"; ?>
+  <?php include "php/header.php"; ?>
   <div class="container" style="width:800px;margin-top:90px;">
     <?php
     if ($_SESSION['charttype'] == 'bar')

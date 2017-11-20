@@ -6,6 +6,6 @@
      Component: <?php echo $_SESSION['kelkomponen']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      Kepemilikan: <?php echo $_SESSION['ownership']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      Buku: <?php echo $_SESSION['buku']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     DSIB Flag: <?php echo $_SESSION['dsibflag']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <!--DSIB Flag: <?php echo $_SESSION['dsibflag']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
      Periode: <?php echo $_SESSION['month']; ?>, <?php echo $_SESSION['year']; ?><p></h2>
     </div>

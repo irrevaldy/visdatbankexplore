@@ -19,12 +19,12 @@ include "php/session.php";
 	<title>Visualisasi DSIB</title>
 </head>
 <body>
+  <?php include "php/sidebar.php"; ?>
 <?php include "php/header.php"; ?>
-<?php include "php/sidebar.php"; ?>
 <?php
 
- $query = "SELECT bank.id_data, periode, deskripsi, n_cluster, threshold, cutoff_score, id_bank, bank.timestamp, nama_bank, ownership, buku, dsib_score, size, s1, s2, s3, s4, s5, s6, interconnect, ifsa, if_1, if_2, if_3, if_4, if_5, if_6, if_7, if_8, if_9, if_10, if_11, if_12, if_13, ifsl, il_1, il_2, il_3, il_4, il_5, il_6, ds, ds_1, ds_2, ds_3, complexity, complexity_c, c_1, c_2, complexity_cs, cs_1, cs_2, cs_3, cs_4, cs_5, cs_6, cs_7, complexity_sub, sub_1, sub_2, sub_3, sub_4, sub_5, sub_6, car, npl_rasio, assets, kredit, npl_nominal, deposit, ldr FROM bank, snapshot_dsib WHERE bank.id_data = snapshot_dsib.id_data order by bank.id_data, id_bank";
-  $result = mysqli_query($server, $query);
+ $query = "SELECT bank.id_data, snapshot_dsib.periode, snapshot_dsib.deskripsi, snapshot_dsib.n_cluster, snapshot_dsib.threshold, snapshot_dsib.cutoff_score, bank.id_bank, bank.timestamp, bank.nama_bank, bank.ownership, bank.buku, bank.dsib_score, bank.size, bank.s1, bank.s2, bank.s3, bank.s4, bank.s5, bank.s6, bank.interconnect, bank.ifsa, bank.if_1, bank.if_2, bank.if_3, bank.if_4, bank.if_5, bank.if_6, bank.if_7, bank.if_8, bank.if_9, bank.if_10, bank.if_11, bank.if_12, bank.if_13, bank.ifsl, bank.il_1, bank.il_2, bank.il_3, bank.il_4, bank.il_5, bank.il_6, bank.ds, bank.ds_1, bank.ds_2, bank.ds_3, bank.complexity, bank.complexity_c, bank.c_1, bank.c_2, bank.complexity_cs, bank.cs_1, bank.cs_2, bank.cs_3, bank.cs_4, bank.cs_5, bank.cs_6, bank.cs_7, bank.complexity_sub, bank.sub_1, bank.sub_2, bank.sub_3, bank.sub_4, bank.sub_5, bank.sub_6, bank.car, bank.npl_rasio, bank.assets, bank.kredit, bank.npl_nominal, bank.deposit, bank.ldr FROM bank, snapshot_dsib WHERE bank.id_data = snapshot_dsib.id_data order by bank.timestamp desc, bank.id_bank asc";
+   $result = mysqli_query($server, $query);
 
  ?>
 
