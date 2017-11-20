@@ -12,36 +12,36 @@ var tip = d3.tip()
   .attr("class", "d3-tip")
   .offset([-10, 0])
   .html(function(d) {
-    if(clickedId == 'dsibscore')
+    if(clickedId == 'dsib_score')
     {
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.dsibscore;
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.dsib_score;
     }
-    else if(clickedId == 'sizescore'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.sizescore;
+    else if(clickedId == 'size'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.size;
     }
-    else if(clickedId == 'interconnectedness'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.interconnectedness;
+    else if(clickedId == 'interconnect'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.interconnect;
     }
-    else if(clickedId == 'ifsascore'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.ifsascore;
+    else if(clickedId == 'ifsa'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.ifsa;
     }
     else if(clickedId == 'ifsl'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.ifsl;
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.ifsl;
     }
-    else if(clickedId == 'debts'){
-        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.debts;
+    else if(clickedId == 'ds'){
+        return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.ds;
     }
-    else if(clickedId == 'complexitys'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.complexitys;
+    else if(clickedId == 'complexity'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity;
     }
-    else if(clickedId == 'complexitycs'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.complexitycs;
+    else if(clickedId == 'complexity_c'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity_c;
     }
-    else if(clickedId == 'countryss'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.countryss;
+    else if(clickedId == 'complexity_cs'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity_cs;
     }
-    else if(clickedId == 'substitutabilityscore'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.substitutabilityscore;
+    else if(clickedId == 'complexity_sub'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity_sub;
     }
   });
 
@@ -56,121 +56,121 @@ var svg = d3.select("body")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.call(tip);
-d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepemilikan  + "&kelbuku=" + selected_kelbuku + "&dsibflag=" +
+d3.json("php/data2.php?id=" + clickedId + "&ownership=" + selected_ownership  + "&buku=" + selected_buku + "&dsibflag=" +
  selected_dsibflag + "&month=" + selected_month + "&year=" + selected_year,
 function(error,data)
 {
 if(error) console.log("Error: data not loaded!");
 
 data.forEach(function(d) {
-d.idbank = d.idbank;
-if(clickedId == 'dsibscore')
+d.id_bank = d.id_bank;
+if(clickedId == 'dsib_score')
 {
-  d.dsibscore = +d.dsibscore;       // try removing the + and see what the console prints
-  console.log(d.dsibscore);   // use console.log to confirm
+  d.dsib_score = +d.dsib_score;       // try removing the + and see what the console prints
+  console.log(d.dsib_score);   // use console.log to confirm
 }
-else if(clickedId == 'sizescore'){
-  d.sizescore = +d.sizescore;       // try removing the + and see what the console prints
-  console.log(d.sizescore);   // use console.log to confirm
+else if(clickedId == 'size'){
+  d.size = +d.size;       // try removing the + and see what the console prints
+  console.log(d.size);   // use console.log to confirm
 }
-else if(clickedId == 'interconnectedness'){
-  d.interconnectedness = +d.interconnectedness;       // try removing the + and see what the console prints
-  console.log(d.interconnectedness);   // use console.log to confirm
+else if(clickedId == 'interconnect'){
+  d.interconnect = +d.interconnect;       // try removing the + and see what the console prints
+  console.log(d.interconnect);   // use console.log to confirm
 }
-else if(clickedId == 'ifsascore'){
-  d.ifsascore = +d.ifsascore;       // try removing the + and see what the console prints
-  console.log(d.ifsascore);   // use console.log to confirm
+else if(clickedId == 'ifsa'){
+  d.ifsa = +d.ifsa;       // try removing the + and see what the console prints
+  console.log(d.ifsa);   // use console.log to confirm
 }
 else if(clickedId == 'ifsl'){
   d.ifsl = +d.ifsl;       // try removing the + and see what the console prints
   console.log(d.ifsl);   // use console.log to confirm
 }
-else if(clickedId == 'debts'){
-  d.debts = +d.debts;       // try removing the + and see what the console prints
-  console.log(d.debts);   // use console.log to confirm
+else if(clickedId == 'ds'){
+  d.ds = +d.ds;       // try removing the + and see what the console prints
+  console.log(d.ds);   // use console.log to confirm
 }
-else if(clickedId == 'complexitys'){
-  d.complexitys = +d.complexitys;       // try removing the + and see what the console prints
-  console.log(d.complexitys);   // use console.log to confirm
+else if(clickedId == 'complexity'){
+  d.complexity = +d.complexity;       // try removing the + and see what the console prints
+  console.log(d.complexity);   // use console.log to confirm
 }
-else if(clickedId == 'complexitycs'){
-  d.complexitycs = +d.complexitycs;       // try removing the + and see what the console prints
-  console.log(d.complexitycs);   // use console.log to confirm
+else if(clickedId == 'complexity_c'){
+  d.complexity_c = +d.complexity_c;       // try removing the + and see what the console prints
+  console.log(d.complexity_c);   // use console.log to confirm
 }
-else if(clickedId == 'countryss'){
-  d.countryss = +d.countryss;       // try removing the + and see what the console prints
-  console.log(d.countryss);   // use console.log to confirm
+else if(clickedId == 'complexity_cs'){
+  d.complexity_cs = +d.complexity_cs;       // try removing the + and see what the console prints
+  console.log(d.complexity_cs);   // use console.log to confirm
 }
-else if(clickedId == 'substitutabilityscore'){
-  d.substitutabilityscore = +d.substitutabilityscore;       // try removing the + and see what the console prints
-  console.log(d.substitutabilityscore);   // use console.log to confirm
+else if(clickedId == 'substitutability'){
+  d.substitutability = +d.substitutability;       // try removing the + and see what the console prints
+  console.log(d.substitutability);   // use console.log to confirm
 }
 });
 
-if(clickedId == 'dsibscore')
+if(clickedId == 'dsib_score')
 {
-    var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.dsibscore); })
+    var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.dsib_score); })
 }
-else if(clickedId == 'sizescore'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.sizescore); })
+else if(clickedId == 'size'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.size); })
 }
-else if(clickedId == 'interconnectedness'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.interconnectedness); })
+else if(clickedId == 'interconnect'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.interconnect); })
 }
-else if(clickedId == 'ifsascore'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.ifsascore); })
+else if(clickedId == 'ifsa'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.ifsa); })
 }
 else if(clickedId == 'ifsl'){
-    var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.ifsl); })
+    var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.ifsl); })
 }
-else if(clickedId == 'debts'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.debts); })
+else if(clickedId == 'ds'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.ds); })
 }
-else if(clickedId == 'complexitys'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.complexitys); })
+else if(clickedId == 'complexity'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.complexity); })
 }
-else if(clickedId == 'complexitycs'){
-    var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.complexitycs); })
+else if(clickedId == 'complexity_c'){
+    var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.complexity_c); })
   }
-else if(clickedId == 'countryss'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.countryss); })
+else if(clickedId == 'complexity_cs'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.complexity_cs); })
 }
-else if(clickedId == 'substitutabilityscore'){
-  var line = d3.svg.line().x(function(d) { return x(d.idbank); }).y(function(d) { return y(d.substitutabilityscore); })
+else if(clickedId == 'substitutability'){
+  var line = d3.svg.line().x(function(d) { return x(d.id_bank); }).y(function(d) { return y(d.substitutability); })
   }
 
-x.domain(data.map(function(d) { return d.idbank; }));
+x.domain(data.map(function(d) { return d.id_bank; }));
 
-if(clickedId == 'dsibscore')
+if(clickedId == 'dsib_score')
 {
-    y.domain([0, d3.max(data, function(d) { return d.dsibscore; })]);
+    y.domain([0, d3.max(data, function(d) { return d.dsib_score; })]);
 }
-else if(clickedId == 'sizescore'){
-  y.domain([0, d3.max(data, function(d) { return d.sizescore; })]);
+else if(clickedId == 'size'){
+  y.domain([0, d3.max(data, function(d) { return d.size; })]);
 }
-else if(clickedId == 'interconnectedness'){
-  y.domain([0, d3.max(data, function(d) { return d.interconnectedness; })]);
+else if(clickedId == 'interconnect'){
+  y.domain([0, d3.max(data, function(d) { return d.interconnect; })]);
 }
-else if(clickedId == 'ifsascore'){
-  y.domain([0, d3.max(data, function(d) { return d.ifsascore; })]);
+else if(clickedId == 'ifsa'){
+  y.domain([0, d3.max(data, function(d) { return d.ifsa; })]);
 }
 else if(clickedId == 'ifsl'){
     y.domain([0, d3.max(data, function(d) { return d.ifsl; })]);
 }
-else if(clickedId == 'debts'){
-  y.domain([0, d3.max(data, function(d) { return d.debts; })]);
+else if(clickedId == 'ds'){
+  y.domain([0, d3.max(data, function(d) { return d.ds; })]);
 }
-else if(clickedId == 'complexitys'){
-y.domain([0, d3.max(data, function(d) { return d.complexitys; })]);
+else if(clickedId == 'complexity'){
+y.domain([0, d3.max(data, function(d) { return d.complexity; })]);
 }
-else if(clickedId == 'complexitycs'){
-  y.domain([0, d3.max(data, function(d) { return d.complexitycs; })]);
+else if(clickedId == 'complexity_c'){
+  y.domain([0, d3.max(data, function(d) { return d.complexity_c; })]);
 }
-else if(clickedId == 'countryss'){
-y.domain([0, d3.max(data, function(d) { return d.countryss; })]);
+else if(clickedId == 'complexity_cs'){
+y.domain([0, d3.max(data, function(d) { return d.complexity_cs; })]);
 }
-else if(clickedId == 'substitutabilityscore'){
-y.domain([0, d3.max(data, function(d) { return d.substitutabilityscore; })]);
+else if(clickedId == 'substitutability'){
+y.domain([0, d3.max(data, function(d) { return d.substitutability; })]);
   }
 /*
 g.append("g")
@@ -205,50 +205,50 @@ g.append("path")
 .attr("d", line);
 
 
-if(clickedId == 'dsibscore')
+if(clickedId == 'dsib_score')
 {
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.dsibscore); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.dsib_score); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'sizescore'){
+else if(clickedId == 'size'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.sizescore); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.size); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'interconnectedness'){
+else if(clickedId == 'interconnect'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.interconnectedness); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.interconnect); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'ifsascore'){
+else if(clickedId == 'ifsa'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.ifsascore); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.ifsa); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
@@ -259,67 +259,67 @@ else if(clickedId == 'ifsl'){
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
+  .attr("cx", function(d) { return x(d.id_bank); })
   .attr("cy", function(d) { return y(d.ifsl); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'debts'){
+else if(clickedId == 'ds'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.debts); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.ds); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'complexitys'){
+else if(clickedId == 'complexity'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.complexitys); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.complexity); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'complexitycs'){
+else if(clickedId == 'complexity_c'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.complexitycs); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.complexity_c); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 }
-else if(clickedId == 'countryss'){
+else if(clickedId == 'complexity_cs'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.countryss); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.complexity_cs); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);
 
 }
-else if(clickedId == 'substitutabilityscore'){
+else if(clickedId == 'substitutability'){
   g.selectAll("circle")
   .data(data)
   .enter().append("circle")
   .attr("class", "circle")
-  .attr("cx", function(d) { return x(d.idbank); })
-  .attr("cy", function(d) { return y(d.substitutabilityscore); })
+  .attr("cx", function(d) { return x(d.id_bank); })
+  .attr("cy", function(d) { return y(d.substitutability); })
   .attr("r", 4)
   .on('mouseover', tip.show)
   .on('mouseout', tip.hide);

@@ -2,7 +2,7 @@
 $username = "root";
 $password = "";
 $host = "localhost";
-$database = "systemicriskbi";
+$database = "bi_dsib";
 
 $server = mysqli_connect($host, $username, $password, $database);
 ?>

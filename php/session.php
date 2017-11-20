@@ -3,15 +3,15 @@ session_start();
 
 if(empty($_SESSION['kelkomponen']))
 {
-  $_SESSION['kelkomponen'] = 'dsibscore';
+  $_SESSION['kelkomponen'] = 'dsib_score';
 }
-if(empty($_SESSION['kelkepemilikan']))
+if(empty($_SESSION['ownership']))
 {
-  $_SESSION['kelkepemilikan'] = 'All';
+  $_SESSION['ownership'] = 'All';
 }
-if(empty($_SESSION['kelbuku']))
+if(empty($_SESSION['buku']))
 {
-  $_SESSION['kelbuku'] = 'All';
+  $_SESSION['buku'] = 'All';
 }
 if(empty($_SESSION['dsibflag']))
 {
@@ -36,7 +36,7 @@ if(empty($_SESSION['chartype']))
 
 function get_radio_buttons0($select)
 {
-  $btns=array('DSIB Score' => 'dsibscore','Size'=>'sizescore', 'Interconnectedness' => 'interconnectedness', 'IFSA' => 'ifsascore','IFSL' => 'ifsl', 'DS' => 'debts','Complexity' => 'complexitys','Complexity-Complexity' => 'complexitycs', 'Country-Specific' => 'countryss','Substitutability' => 'substitutabilityscore');
+  $btns=array('DSIB Score' => 'dsib_score','Size'=>'size', 'Interconnectedness' => 'interconnect', 'IFSA' => 'ifsa','IFSL' => 'ifsl', 'DS' => 'ds','Complexity' => 'complexity','Complexity-Complexity' => 'complexity_c', 'Country-Specific' => 'complexity_cs','Substitutability' => 'complexity_sub');
   $str='';
   while(list($k,$v)=each($btns))
   {
@@ -55,7 +55,7 @@ function get_radio_buttons0($select)
 function get_radio_buttons($select)
 {
 
-  $btns=array('All' => 'All','Bank Persero'=>'Bank Persero', 'Bank Asing' => 'Bank Asing', 'Bank Swasta Nasional' => 'Bank Swasta Nasional','BPD' => 'BPD', 'Bank Campuran' => 'Bank Campuran');
+  $btns=array('All' => 'All','Bank Persero'=>'BANK PERSERO', 'Bank Asing' => 'BANK ASING', 'Bank Swasta Nasional' => 'BANK SWASTA NASIONAL','Bank Pembangunan Daerah' => 'BANK PEMBANGUNAN DAERAH', 'Bank Campuran' => 'BANK CAMPURAN');
   $str='';
   while(list($k,$v)=each($btns))
   {
@@ -74,7 +74,7 @@ function get_radio_buttons($select)
 function get_radio_buttons2($select)
 {
 
-  $btns=array('All' => 'All','Buku 1'=>'1', 'Buku 2' => '2', 'Buku 3' => '3','Buku 4' => '4');
+  $btns=array('All' => 'All','Buku 1'=>'BUKU 1', 'Buku 2' => 'BUKU 2', 'Buku 3' => 'BUKU 3','Buku 4' => 'BUKU 4');
   $str='';
   while(list($k,$v)=each($btns))
   {
@@ -134,16 +134,16 @@ if(isset($_POST['kelkomponen']))
   $_SESSION['kelkomponen'] = $selected_kelkomponen;
 
 }
-if(isset($_POST['kelkepemilikan']))
+if(isset($_POST['ownership']))
 {
-  $selected_kelkepemilikan= $_POST['kelkepemilikan'][0];
-  $_SESSION['kelkepemilikan'] = $selected_kelkepemilikan;
+  $selected_ownership= $_POST['ownership'][0];
+  $_SESSION['ownership'] = $selected_ownership;
 
 }
-if(isset($_POST['kelbuku']))
+if(isset($_POST['buku']))
 {
-  $selected_kelbuku= $_POST['kelbuku'][0];
-  $_SESSION['kelbuku'] = $selected_kelbuku;
+  $selected_buku= $_POST['buku'][0];
+  $_SESSION['buku'] = $selected_buku;
 
 }
 if(isset($_POST['dsibflag']))

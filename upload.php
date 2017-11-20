@@ -1,0 +1,238 @@
+<?php
+include "php/session.php";
+ include "php/dbconnect.php";
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/d3.min.js"></script>
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<!-- Fonts -->
+	<!-- Scripts -->
+  <script src="js/close_menu.js"></script>
+	<title>Visualisasi DSIB</title>
+</head>
+<body>
+<?php include "php/header.php"; ?>
+<?php include "php/sidebar.php"; ?>
+<?php
+
+ $query = "SELECT bank.id_data, periode, deskripsi, n_cluster, threshold, cutoff_score, id_bank, bank.timestamp, nama_bank, ownership, buku, dsib_score, size, s1, s2, s3, s4, s5, s6, interconnect, ifsa, if_1, if_2, if_3, if_4, if_5, if_6, if_7, if_8, if_9, if_10, if_11, if_12, if_13, ifsl, il_1, il_2, il_3, il_4, il_5, il_6, ds, ds_1, ds_2, ds_3, complexity, complexity_c, c_1, c_2, complexity_cs, cs_1, cs_2, cs_3, cs_4, cs_5, cs_6, cs_7, complexity_sub, sub_1, sub_2, sub_3, sub_4, sub_5, sub_6, car, npl_rasio, assets, kredit, npl_nominal, deposit, ldr FROM bank, snapshot_dsib WHERE bank.id_data = snapshot_dsib.id_data order by bank.id_data, id_bank";
+  $result = mysqli_query($server, $query);
+
+ ?>
+
+           <div class="container" style="width:800px;margin-top:90px;">
+                <h3 align="center">Import Excel File to Database</h2>
+                <form id="upload_xls" method="post" enctype="multipart/form-data">
+                     <div class="col-md-3">
+                          <br />
+                          <label>Add More Data</label>
+                     </div>
+                     <div class="col-md-4">
+                          <input type="file" name="bank_file" style="margin-top:15px;" />
+                     </div>
+                     <div class="col-md-5">
+                          <input type="submit" name="upload" id="upload" value="Upload" style="margin-top:10px;" class="btn btn-info" />
+                     </div>
+                     <div style="clear:both"></div>
+                </form>
+                <br /><br /><br />
+                <div class="table-responsive" id="bank_table">
+                     <table class="table table-bordered">
+                          <tr>
+                            <th width="5%">ID Data</th>
+                            <th width="25%">Periode</th>
+                            <th width="35%">Deskripsi</th>
+                            <th width="10%">N-cluster</th>
+                            <th width="20%">Threshold</th>
+                            <th width="5%">Cutoff Score</th>
+                             <th width="5%">ID Bank</th>
+                               <th width="5%">Timestamp</th>
+                               <th width="5%">Nama Bank</th>
+                               <th width="5%">Ownership</th>
+                               <th width="5%">Buku</th>
+              <!--                 <th width="5%">DSIB Flag</th> -->
+                               <th width="5%">DSIB Score</th>
+                               <th width="5%">Size</th>
+                                 <th width="5%">On Balance Sheet</th>
+                                   <th width="5%">Off Balance sheet</th>
+                                     <th width="5%">Total Kkom</th>
+                                       <th width="5%">total KKon</th>
+                                         <th width="5%">Posisi PSD</th>
+                                           <th width="5%">Potential FE</th>
+                                           <th width="5%">Interconnectedness</th>
+                                             <th width="5%">IFSA Score</th>
+                                               <th width="5%">Penempatan PBLKMD</th>
+                                               <th width="5%">Kredit BDL</th>
+                                               <th width="5%">Acceptance FOB</th>
+                                               <th width="5%">Undrawn Cletofi</th>
+                                               <th width="5%">Secure DDS</th>
+                                               <th width="5%">Senior UDS</th>
+                                               <th width="5%">Subordinate DDS</th>
+                                               <th width="5%">Commercial P</th>
+                                               <th width="5%">Stock</th>
+                                               <th width="5%">Netpceosftwofir</th>
+                                               <th width="5%">Netpceosftwofirr</th>
+                                               <th width="5%">Otcdnpfv</th>
+                                               <th width="5%">Derivativepfe</th>
+                                               <th width="5%">IFSL</th>
+                                               <th width="5%">Liabilitiesiddtdi</th>
+                                               <th width="5%">Deposits DTNdfi</th>
+                                               <th width="5%">Undrawn Clofofi</th>
+                                               <th width="5%">Pinjaman Yd</th>
+                                               <th width="5%">Netnceosftwofi</th>
+                                               <th width="5%">Otcdnnfv</th>
+                                               <th width="5%">Debts</th>
+                                               <th width="5%">Senior UDSS</th>
+                                               <th width="5%">Subdordinate DDSS</th>
+                                               <th width="5%">Equity MC</th>
+                                               <th width="5%">Complexitys</th>
+                                               <th width="5%">Complexitycs</th>
+                                               <th width="5%">OTCD</th>
+                                               <th width="5%">Securities</th>
+                                               <th width="5%">Countryss</th>
+                                                 <th width="5%">Garansi</th>
+                                                   <th width="5%">Lc</th>
+                                                     <th width="5%">Pangsasbn</th>
+                                                       <th width="5%">Rekdpk</th>
+                                                         <th width="5%">Fask</th>
+                                                           <th width="5%">KCDN</th>
+                                                           <th width="5%">KCLN</th>
+                                                             <th width="5%">Substitutability Score</th>
+                                                             <th width="5%">Nilai RTGS</th>
+                                                             <th width="5%">Nilai SKNBI</th>
+                                                             <th width="5%">Volume RTGS</th>
+                                                             <th width="5%">Volume SKNBI</th>
+                                                             <th width="5%">Kustodian Nilai</th>
+                                                             <th width="5%">Kustodian Volume Ke</th>
+                       <th width="5%">CAR</th>
+                       <th width="5%">NPL Rasio</th>
+                       <th width="5%">Assets</th>
+                       <th width="5%">Kredit</th>
+                       <th width="5%">NPL Nominal</th>
+                       <th width="5%">Deposit</th>
+                       <th width="5%">LDR</th>
+                        </tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result))
+                        {
+                        ?>
+                        <tr>
+                             <td><?php echo $row["id_data"]; ?></td>
+                             <td><?php echo $row["periode"]; ?></td>
+                             <td><?php echo $row["deskripsi"]; ?></td>
+                             <td><?php echo $row["n_cluster"]; ?></td>
+                             <td><?php echo $row["threshold"]; ?></td>
+                             <td><?php echo $row["cutoff_score"]; ?></td>
+                             <td><?php echo $row["id_bank"]; ?></td>
+                             <td><?php echo $row["timestamp"]; ?></td>
+                             <td><?php echo $row["nama_bank"]; ?></td>
+                             <td><?php echo $row["ownership"]; ?></td>
+                             <td><?php echo $row["buku"]; ?></td>
+                             <td><?php echo $row["dsib_score"]; ?></td>
+                             <td><?php echo $row["size"]; ?></td>
+                             <td><?php echo $row["s1"]; ?></td>
+                             <td><?php echo $row["s2"]; ?></td>
+                             <td><?php echo $row["s3"]; ?></td>
+                             <td><?php echo $row["s4"]; ?></td>
+                             <td><?php echo $row["s5"]; ?></td>
+                             <td><?php echo $row["s6"]; ?></td>
+                             <td><?php echo $row["interconnect"]; ?></td>
+                             <td><?php echo $row["ifsa"]; ?></td>
+                             <td><?php echo $row["if_1"]; ?></td>
+                             <td><?php echo $row["if_2"]; ?></td>
+                             <td><?php echo $row["if_3"]; ?></td>
+                             <td><?php echo $row["if_4"]; ?></td>
+                             <td><?php echo $row["if_5"]; ?></td>
+                             <td><?php echo $row["if_6"]; ?></td>
+                             <td><?php echo $row["if_7"]; ?></td>
+                             <td><?php echo $row["if_8"]; ?></td>
+                             <td><?php echo $row["if_9"]; ?></td>
+                             <td><?php echo $row["if_10"]; ?></td>
+                             <td><?php echo $row["if_11"]; ?></td>
+                             <td><?php echo $row["if_12"]; ?></td>
+                             <td><?php echo $row["if_13"]; ?></td>
+                             <td><?php echo $row["ifsl"]; ?></td>
+                             <td><?php echo $row["il_1"]; ?></td>
+                             <td><?php echo $row["il_2"]; ?></td>
+                             <td><?php echo $row["il_3"]; ?></td>
+                             <td><?php echo $row["il_4"]; ?></td>
+                             <td><?php echo $row["il_5"]; ?></td>
+                             <td><?php echo $row["il_6"]; ?></td>
+                             <td><?php echo $row["ds"]; ?></td>
+                             <td><?php echo $row["ds_1"]; ?></td>
+                             <td><?php echo $row["ds_2"]; ?></td>
+                             <td><?php echo $row["ds_3"]; ?></td>
+                             <td><?php echo $row["complexity"]; ?></td>
+                             <td><?php echo $row["complexity_c"]; ?></td>
+                             <td><?php echo $row["c_1"]; ?></td>
+                             <td><?php echo $row["c_2"]; ?></td>
+                             <td><?php echo $row["complexity_cs"]; ?></td>
+                             <td><?php echo $row["cs_1"]; ?></td>
+                             <td><?php echo $row["cs_2"]; ?></td>
+                             <td><?php echo $row["cs_3"]; ?></td>
+                             <td><?php echo $row["cs_4"]; ?></td>
+                             <td><?php echo $row["cs_5"]; ?></td>
+                             <td><?php echo $row["cs_6"]; ?></td>
+                             <td><?php echo $row["cs_7"]; ?></td>
+                             <td><?php echo $row["complexity_sub"]; ?></td>
+                             <td><?php echo $row["sub_1"]; ?></td>
+                             <td><?php echo $row["sub_2"]; ?></td>
+                             <td><?php echo $row["sub_3"]; ?></td>
+                             <td><?php echo $row["sub_4"]; ?></td>
+                             <td><?php echo $row["sub_5"]; ?></td>
+                             <td><?php echo $row["sub_6"]; ?></td>
+                             <td><?php echo $row["car"]; ?></td>
+                             <td><?php echo $row["npl_rasio"]; ?></td>
+                             <td><?php echo $row["assets"]; ?></td>
+                             <td><?php echo $row["kredit"]; ?></td>
+                             <td><?php echo $row["npl_nominal"]; ?></td>
+                             <td><?php echo $row["deposit"]; ?></td>
+                             <td><?php echo $row["ldr"]; ?></td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                     </table>
+                </div>
+           </div>
+ <script>
+      $(document).ready(function(){
+           $('#upload_xls').on("submit", function(e){
+                e.preventDefault(); //form will not submitted
+                $.ajax({
+                     url:"import.php",
+                     method:"POST",
+                     data:new FormData(this),
+                     contentType:false,          // The content type used when sending data to the server.
+                     cache:false,                // To unable request pages to be cached
+                     processData:false,          // To send DOMDocument or non processed data file it is set to false
+                     success: function(data){
+                          if(data=='Error1')
+                          {
+                               alert("Invalid File");
+                          }
+                          else if(data == "Error2")
+                          {
+                               alert("Please Select File");
+                          }
+                          else
+                          {
+                               $('#bank_table').html(data);
+                          }
+                     }
+                })
+           });
+      });
+ </script>
+</div>
+
+</body>
+</html>

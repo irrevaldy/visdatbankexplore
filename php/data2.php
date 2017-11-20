@@ -2,44 +2,44 @@
     include "dbconnect.php";
 
     $attrib = $_GET['id'];
-    $kelkepemilikan = $_GET['kelkepemilikan'];
-    $kelbuku = $_GET['kelbuku'];
+    $ownership = $_GET['ownership'];
+    $buku = $_GET['buku'];
     $dsibflag = $_GET['dsibflag'];
     $month = $_GET['month'];
     $year = $_GET['year'];
 
 
-    if($kelkepemilikan =='All' && $kelbuku == 'All' && $dsibflag == 'All')
+    if($ownership =='All' && $buku == 'All' && $dsibflag == 'All')
     {
-          $myquery = "SELECT idbank, $attrib FROM indikatorresiko where MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+          $myquery = "SELECT id_bank, $attrib FROM bank where MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($kelkepemilikan =='All' && $kelbuku == 'All' && $dsibflag != 'All')
+    elseif($ownership =='All' && $buku == 'All' && $dsibflag != 'All')
     {
-      $myquery = "SELECT idbank, $attrib FROM indikatorresiko where dsibflag = '$dsibflag'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+      $myquery = "SELECT id_bank, $attrib FROM bank where dsibflag = '$dsibflag'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($kelbuku =='All' && $dsibflag == 'All' && $kelkepemilikan !='All')
+    elseif($buku =='All' && $dsibflag == 'All' && $ownership !='All')
     {
-      $myquery = "SELECT idbank, $attrib FROM indikatorresiko where kelkepemilikan = '$kelkepemilikan'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+      $myquery = "SELECT id_bank, $attrib FROM bank where ownership = '$ownership'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($kelkepemilikan =='All' && $dsibflag == 'All' && $kelbuku !='All')
+    elseif($ownership =='All' && $dsibflag == 'All' && $buku !='All')
     {
-      $myquery = "SELECT idbank, $attrib FROM indikatorresiko where kelbuku= '$kelbuku' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+      $myquery = "SELECT id_bank, $attrib FROM bank where buku= '$buku' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($kelkepemilikan =='All' && $kelbuku != 'All' && $dsibflag != 'All')
+    elseif($ownership =='All' && $buku != 'All' && $dsibflag != 'All')
     {
-      $myquery = "SELECT idbank, $attrib FROM indikatorresiko where kelbuku = '$kelbuku' and dsibflag = '$dsibflag' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+      $myquery = "SELECT id_bank, $attrib FROM bank where buku = '$buku' and dsibflag = '$dsibflag' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($kelbuku =='All' && $dsibflag != 'All' && $kelkepemilikan !='All')
+    elseif($buku =='All' && $dsibflag != 'All' && $ownership !='All')
     {
-      $myquery = "SELECT idbank, $attrib FROM indikatorresiko where kelkepemilikan = '$kelkepemilikan' and dsibflag = '$dsibflag' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+      $myquery = "SELECT id_bank, $attrib FROM bank where ownership = '$ownership' and dsibflag = '$dsibflag' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($dsibflag == 'All' && $kelkepemilikan !='All' && $kelbuku != 'All')
+    elseif($dsibflag == 'All' && $ownership !='All' && $buku != 'All')
     {
-      $myquery = "SELECT idbank, $attrib FROM indikatorresiko where kelkepemilikan = '$kelkepemilikan' and kelbuku = '$kelbuku' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+      $myquery = "SELECT id_bank, $attrib FROM bank where ownership = '$ownership' and buku = '$buku' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
-    elseif($kelkepemilikan !='All' && $kelbuku != 'All' && $dsibflag != 'All')
+    elseif($ownership !='All' && $buku != 'All' && $dsibflag != 'All')
     {
-          $myquery = "SELECT idbank, $attrib FROM indikatorresiko where kelkepemilikan = '$kelkepemilikan' and kelbuku = '$kelbuku' and dsibflag = '$dsibflag'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
+          $myquery = "SELECT id_bank, $attrib FROM bank where ownership = '$ownership' and buku = '$buku' and dsibflag = '$dsibflag'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     }
     $query = mysqli_query($server, $myquery);
 

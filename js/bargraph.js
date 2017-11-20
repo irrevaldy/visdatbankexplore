@@ -21,36 +21,36 @@ var tip = d3.tip()
   .attr("class", "d3-tip")
   .offset([-10, 0])
   .html(function(d) {
-    if(clickedId == 'dsibscore')
+    if(clickedId == 'dsib_score')
     {
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.dsibscore;
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.dsib_score;
     }
-    else if(clickedId == 'sizescore'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.sizescore;
+    else if(clickedId == 'size'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.size;
     }
-    else if(clickedId == 'interconnectedness'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.interconnectedness;
+    else if(clickedId == 'interconnect'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.interconnect;
     }
-    else if(clickedId == 'ifsascore'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.ifsascore;
+    else if(clickedId == 'ifsa'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.ifsa;
     }
     else if(clickedId == 'ifsl'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.ifsl;
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.ifsl;
     }
-    else if(clickedId == 'debts'){
-        return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.debts;
+    else if(clickedId == 'ds'){
+        return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.ds;
     }
-    else if(clickedId == 'complexitys'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.complexitys;
+    else if(clickedId == 'complexity'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity;
     }
-    else if(clickedId == 'complexitycs'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.complexitycs;
+    else if(clickedId == 'complexity_c'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity_c;
     }
-    else if(clickedId == 'countryss'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.countryss;
+    else if(clickedId == 'complexity_cs'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity_cs;
     }
-    else if(clickedId == 'substitutabilityscore'){
-      return "Bank ID: " + d.idbank + "<br>" + clickedId + ": " + d.substitutabilityscore;
+    else if(clickedId == 'complexity_sub'){
+      return "Bank ID: " + d.id_bank + "<br>" + clickedId + ": " + d.complexity_sub;
     }
   });
 
@@ -66,88 +66,88 @@ var svg = d3.select("body")
 svg.call(tip);
 
 var incomingdata;
-d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepemilikan  + "&kelbuku=" + selected_kelbuku + "&dsibflag=" +
+d3.json("php/data2.php?id=" + clickedId + "&ownership=" + selected_ownership  + "&buku=" + selected_buku + "&dsibflag=" +
  selected_dsibflag + "&month=" + selected_month + "&year=" + selected_year, function(error,data) {
   if(error) console.log("Error: data not loaded!");
   incomingdata = data;
 
   data.forEach(function(d) {
-    d.idbank = d.idbank;
-    if(clickedId == 'dsibscore')
+    d.id_bank = d.id_bank;
+    if(clickedId == 'dsib_score')
     {
-      d.dsibscore = +d.dsibscore;       // try removing the + and see what the console prints
-      console.log(d.dsibscore);   // use console.log to confirm
+      d.dsib_score = +d.dsib_score;       // try removing the + and see what the console prints
+      console.log(d.dsib_score);   // use console.log to confirm
     }
-    else if(clickedId == 'sizescore'){
-      d.sizescore = +d.sizescore;       // try removing the + and see what the console prints
-      console.log(d.sizescore);   // use console.log to confirm
+    else if(clickedId == 'size'){
+      d.size = +d.size;       // try removing the + and see what the console prints
+      console.log(d.size);   // use console.log to confirm
     }
-    else if(clickedId == 'interconnectedness'){
-      d.interconnectedness = +d.interconnectedness;       // try removing the + and see what the console prints
-      console.log(d.interconnectedness);   // use console.log to confirm
+    else if(clickedId == 'interconnect'){
+      d.interconnect = +d.interconnect;       // try removing the + and see what the console prints
+      console.log(d.interconnect);   // use console.log to confirm
     }
-    else if(clickedId == 'ifsascore'){
-      d.ifsascore = +d.ifsascore;       // try removing the + and see what the console prints
-      console.log(d.ifsascore);   // use console.log to confirm
+    else if(clickedId == 'ifsa'){
+      d.ifsa = +d.ifsa;       // try removing the + and see what the console prints
+      console.log(d.ifsa);   // use console.log to confirm
     }
     else if(clickedId == 'ifsl'){
       d.ifsl = +d.ifsl;       // try removing the + and see what the console prints
       console.log(d.ifsl);   // use console.log to confirm
     }
-    else if(clickedId == 'debts'){
-      d.debts = +d.debts;       // try removing the + and see what the console prints
-      console.log(d.debts);   // use console.log to confirm
+    else if(clickedId == 'ds'){
+      d.ds = +d.ds;       // try removing the + and see what the console prints
+      console.log(d.ds);   // use console.log to confirm
     }
-    else if(clickedId == 'complexitys'){
-      d.complexitys = +d.complexitys;       // try removing the + and see what the console prints
-      console.log(d.complexitys);   // use console.log to confirm
+    else if(clickedId == 'complexity'){
+      d.complexity = +d.complexity;       // try removing the + and see what the console prints
+      console.log(d.complexity);   // use console.log to confirm
     }
-    else if(clickedId == 'complexitycs'){
-      d.complexitycs = +d.complexitycs;       // try removing the + and see what the console prints
-      console.log(d.complexitycs);   // use console.log to confirm
+    else if(clickedId == 'complexity_c'){
+      d.complexity_c = +d.complexity_c;       // try removing the + and see what the console prints
+      console.log(d.complexity_c);   // use console.log to confirm
     }
-    else if(clickedId == 'countryss'){
-      d.countryss = +d.countryss;       // try removing the + and see what the console prints
-      console.log(d.countryss);   // use console.log to confirm
+    else if(clickedId == 'complexity_cs'){
+      d.complexity_cs = +d.complexity_cs;       // try removing the + and see what the console prints
+      console.log(d.complexity_cs);   // use console.log to confirm
     }
-    else if(clickedId == 'substitutabilityscore'){
-      d.substitutabilityscore = +d.substitutabilityscore;       // try removing the + and see what the console prints
-      console.log(d.substitutabilityscore);   // use console.log to confirm
+    else if(clickedId == 'complexity_sub'){
+      d.complexity_sub = +d.complexity_sub;       // try removing the + and see what the console prints
+      console.log(d.complexity_sub);   // use console.log to confirm
     }
   });
 
   // Specify the domains of the x and y scales
-  xScale.domain(data.map(function(d) { return d.idbank; }) );
-  if(clickedId == 'dsibscore')
+  xScale.domain(data.map(function(d) { return d.id_bank; }) );
+  if(clickedId == 'dsib_score')
   {
-      yScale.domain([0, d3.max(data, function(d) { return d.dsibscore; } ) ]);
+      yScale.domain([0, d3.max(data, function(d) { return d.dsib_score; } ) ]);
   }
-  else if(clickedId == 'sizescore'){
-    yScale.domain([0, d3.max(data, function(d) { return d.sizescore; } ) ]);
+  else if(clickedId == 'size'){
+    yScale.domain([0, d3.max(data, function(d) { return d.size; } ) ]);
   }
-  else if(clickedId == 'interconnectedness'){
-      yScale.domain([0, d3.max(data, function(d) { return d.interconnectedness; } ) ]);
+  else if(clickedId == 'interconnect'){
+      yScale.domain([0, d3.max(data, function(d) { return d.interconnect; } ) ]);
   }
-  else if(clickedId == 'ifsascore'){
-      yScale.domain([0, d3.max(data, function(d) { return d.ifsascore; } ) ]);
+  else if(clickedId == 'ifsa'){
+      yScale.domain([0, d3.max(data, function(d) { return d.ifsa; } ) ]);
   }
   else if(clickedId == 'ifsl'){
       yScale.domain([0, d3.max(data, function(d) { return d.ifsl; } ) ]);
   }
-  else if(clickedId == 'debts'){
-    yScale.domain([0, d3.max(data, function(d) { return d.debts; } ) ]);
+  else if(clickedId == 'ds'){
+    yScale.domain([0, d3.max(data, function(d) { return d.ds; } ) ]);
   }
-  else if(clickedId == 'complexitys'){
-      yScale.domain([0, d3.max(data, function(d) { return d.complexitys; } ) ]);
+  else if(clickedId == 'complexity'){
+      yScale.domain([0, d3.max(data, function(d) { return d.complexity; } ) ]);
   }
-  else if(clickedId == 'complexitycs'){
-      yScale.domain([0, d3.max(data, function(d) { return d.complexitycs; } ) ]);
+  else if(clickedId == 'complexity_c'){
+      yScale.domain([0, d3.max(data, function(d) { return d.complexity_c; } ) ]);
   }
-  else if(clickedId == 'countryss'){
-      yScale.domain([0, d3.max(data, function(d) { return d.countryss; } ) ]);
+  else if(clickedId == 'complexity_cs'){
+      yScale.domain([0, d3.max(data, function(d) { return d.complexity_cs; } ) ]);
   }
-  else if(clickedId == 'substitutabilityscore'){
-      yScale.domain([0, d3.max(data, function(d) { return d.substitutabilityscore; } ) ]);
+  else if(clickedId == 'complexity_sub'){
+      yScale.domain([0, d3.max(data, function(d) { return d.complexity_sub; } ) ]);
   }
 
   var countdata =svg.selectAll("text").data(data).enter().size();
@@ -214,52 +214,52 @@ d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepem
       .style("text-anchor", "middle")
       .text("Score");
 
-  if(clickedId == 'dsibscore')
+  if(clickedId == 'dsib_score')
   {
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.dsibscore); })
-      .attr("height", function(d) { return height - yScale(d.dsibscore); })
+      .attr("y", function(d) { return yScale(d.dsib_score); })
+      .attr("height", function(d) { return height - yScale(d.dsib_score); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'sizescore') {
+  else if(clickedId == 'size') {
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.sizescore); })
-      .attr("height", function(d) { return height - yScale(d.sizescore); })
+      .attr("y", function(d) { return yScale(d.size); })
+      .attr("height", function(d) { return height - yScale(d.size); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'interconnectedness'){
+  else if(clickedId == 'interconnect'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.interconnectedness); })
-      .attr("height", function(d) { return height - yScale(d.interconnectedness); })
+      .attr("y", function(d) { return yScale(d.interconnect); })
+      .attr("height", function(d) { return height - yScale(d.interconnect); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'ifsascore'){
+  else if(clickedId == 'ifsa'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.ifsascore); })
-      .attr("height", function(d) { return height - yScale(d.ifsascore); })
+      .attr("y", function(d) { return yScale(d.ifsa); })
+      .attr("height", function(d) { return height - yScale(d.ifsa); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
@@ -268,70 +268,70 @@ d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepem
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
       .attr("y", function(d) { return yScale(d.ifsl); })
       .attr("height", function(d) { return height - yScale(d.ifsl); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'debts'){
+  else if(clickedId == 'ds'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.debts); })
-      .attr("height", function(d) { return height - yScale(d.debts); })
+      .attr("y", function(d) { return yScale(d.ds); })
+      .attr("height", function(d) { return height - yScale(d.ds); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'complexitys'){
+  else if(clickedId == 'complexity'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.complexitys); })
-      .attr("height", function(d) { return height - yScale(d.complexitys); })
+      .attr("y", function(d) { return yScale(d.complexity); })
+      .attr("height", function(d) { return height - yScale(d.complexity); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'complexitycs'){
+  else if(clickedId == 'complexity_c'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.complexitycs); })
-      .attr("height", function(d) { return height - yScale(d.complexitycs); })
+      .attr("y", function(d) { return yScale(d.complexity_c); })
+      .attr("height", function(d) { return height - yScale(d.complexity_c); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'countryss'){
+  else if(clickedId == 'complexity_cs'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.countryss); })
-      .attr("height", function(d) { return height - yScale(d.countryss); })
+      .attr("y", function(d) { return yScale(d.complexity_cs); })
+      .attr("height", function(d) { return height - yScale(d.complexity_cs); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
-  else if(clickedId == 'substitutabilityscore'){
+  else if(clickedId == 'complexity_sub'){
     svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return xScale(d.idbank); })
+      .attr("x", function(d) { return xScale(d.id_bank); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d.substitutabilityscore); })
-      .attr("height", function(d) { return height - yScale(d.substitutabilityscore); })
+      .attr("y", function(d) { return yScale(d.complexity_sub); })
+      .attr("height", function(d) { return height - yScale(d.complexity_sub); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   }
@@ -342,97 +342,97 @@ d3.json("php/data2.php?id=" + clickedId + "&kelkepemilikan=" + selected_kelkepem
 
   function change() {
     clearTimeout(sortTimeout);
-    if(clickedId == 'dsibscore')
+    if(clickedId == 'dsib_score')
     {
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.dsibscore - a.dsibscore; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.dsib_score - a.dsib_score; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'sizescore'){
+    else if(clickedId == 'size'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.sizescore - a.sizescore; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.size - a.size; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'interconnectedness'){
+    else if(clickedId == 'interconnect'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.interconnectedness - a.interconnectedness; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.interconnect - a.interconnect; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'ifsascore'){
+    else if(clickedId == 'ifsa'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.ifsascore - a.ifsascore; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.ifsa - a.ifsa; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
     else if(clickedId == 'ifsl'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.sizescore - a.sizescore; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.size - a.size; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'debts'){
+    else if(clickedId == 'ds'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.debts - a.debts; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.ds - a.ds; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'complexitys'){
+    else if(clickedId == 'complexity'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.complexitys - a.complexitys; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.complexity - a.complexity; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'complexitycs'){
+    else if(clickedId == 'complexity_c'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.complexitycs - a.complexitycs; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.complexity_c - a.complexity_c; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'countryss'){
+    else if(clickedId == 'complexity_cs'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.countryss - a.countryss; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.complexity_cs - a.complexity_cs; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
-    else if(clickedId == 'substitutabilityscore'){
+    else if(clickedId == 'complexity_sub'){
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = xScale.domain(data.sort(this.checked
-          ? function(a, b) { return b.substitutabilityscore - a.substitutabilityscore; }
-          : function(a, b) { return a.idbank - b.idbank; })
-          .map(function(d) { return d.idbank; }))
+          ? function(a, b) { return b.complexity_sub - a.complexity_sub; }
+          : function(a, b) { return a.id_bank - b.id_bank; })
+          .map(function(d) { return d.id_bank; }))
           .copy();
     }
 
   svg.selectAll(".bar")
-      .sort(function(a, b) { return x0(a.idbank) - x0(b.idbank); });
+      .sort(function(a, b) { return x0(a.id_bank) - x0(b.id_bank); });
 
   var transition = svg.transition().duration(750),
       delay = function(d, i) { return i * 50; };
 
   transition.selectAll(".bar")
       .delay(delay)
-      .attr("x", function(d) { return x0(d.idbank); });
+      .attr("x", function(d) { return x0(d.id_bank); });
 
   transition.select(".x.axis")
       .call(xAxis)

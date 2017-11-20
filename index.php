@@ -49,13 +49,13 @@ var expanded = false;
   <?php include "php/sidebar.php"; ?>
   <script>
   var clickedId = '<?php echo $_SESSION['kelkomponen']; ?>';
-  var selected_kelkepemilikan = '<?php echo $_SESSION['kelkepemilikan']; ?>';
-  var selected_kelbuku = '<?php echo $_SESSION['kelbuku']; ?>';
+  var selected_ownership= '<?php echo $_SESSION['ownership']; ?>';
+  var selected_buku = '<?php echo $_SESSION['buku']; ?>';
   var selected_dsibflag = '<?php echo $_SESSION['dsibflag']; ?>';
   var selected_month = '<?php echo $_SESSION['month']; ?>';
   var selected_year = '<?php echo $_SESSION['year']; ?>';
   </script>
-  <div class="main">
+  <div class="container" style="width:800px;margin-top:90px;">
     <?php
     if ($_SESSION['charttype'] == 'bar')
     {

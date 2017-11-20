@@ -1,0 +1,243 @@
+{
+    "Id": "dsib_score",
+    "Label": "DSIB Score",
+	"Weight" : 1.0,
+    "Child": [
+        {
+            "Id": "size",
+            "Label": "Size Score",
+			"Weight" : 1.0,
+            "Child": [
+                {
+                    "Id": "s1",
+                    "Label": "On Balance Sheet",
+					"Weight" : 1.0
+                }, {
+                    "Id": "s2",
+                    "Label": "Off Balance Sheet",
+					"Weight" : 1.0
+                }, {
+                    "Id": "s3",
+                    "Label": "Total Kewajiban Komitmen",
+					"Weight" : 1.0	
+                }, {
+                    "Id": "s4",
+                    "Label": "Total Kewajiban Kontijensi",
+					"Weight" : 1.0
+                }, {
+                    "Id": "s5",
+                    "Label": "Potensi Penjualan Spot dan Derivatif",
+					"Weight" : 1.0
+                }, {
+                    "Id": "s6",
+                    "Label": "Potential Future Exposure",
+					"Weight" : 1.0
+                }
+            ]
+        }, {
+            "Id": "interconnectedness",
+            "Label": "Interconnectedness",
+			"Weight" : 1.0,
+            "Child": [
+                {
+                    "Id": "ifsa",
+                    "Label": "IFSA Score",
+					"Weight" : 1.0,
+					"Child": [
+						{
+						 "Id": "if_1",
+						 "Label": "Penempatan Pada Bank Lain Kecuali Margin Deposits",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_2",
+						 "Label": "Kredit Bank dan LKNB",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_3",
+						 "Label": "Acceptances From Other Banks (Tagihan Akseptasi)",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_4",
+						 "Label": "Undrawn Commited Lines Extended To Other Financial Institution",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_5",
+						 "Label": "Secured Debt Securities",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_6",
+						 "Label": "Senior Unsecured Debt Securities (Exclude EBA)",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_7",
+						 "Label": "Subordinated Debt Securities",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_8",
+						 "Label": "Commercial Paper",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_9",
+						 "Label": "Stock (Including Par And Surplus of Common And Preferred)",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_10",
+						 "Label": "Net Positive Current Exposure of Securities Financing Transactions With Other Financial Institutions (Repo)",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_11",
+						 "Label": "Net Positive Current Exposure of Securities Financing Transactions With Other Financial Institutions (Repo)",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_12",
+						 "Label": "OTC Derivatives Net Positive Fair Value (Including Collateral Held If It IS Within The Master Netting Agreement)",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "if_13",
+						 "Label": "Derivative Potential Future Exposure",
+						 "Weight" : 1.0
+						}
+					]	
+                }, {
+                    "Id": "ifsl",
+                    "Label": "IFSL",
+					"Weight" : 1.0,
+					"Child": [
+						{
+						 "Id": "il_1",
+						 "Label": "Liabilities Incld Deposits Due To Depository Institutions",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "il_2",
+						 "Label": "Deposits Due To Non-Depository Financial Institutions",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "il_3",
+						 "Label": "Undrawn Commited Lines Obtained From Other Financial Institutions",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "il_4",
+						 "Label": "Pinjaman Yang Diterima",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "il_5",
+						 "Label": "Net Negative Current Exposure of Securities Financing Transactions With Other Financial Institutions",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "il_6",
+						 "Label": "OTC Derivative Net Negative Fair Value (Include Collateral Provided If It Is Within The Master Netting Agreement)",
+						 "Weight" : 1.0
+						}
+					]
+                }, {
+                    "Id": "ds",
+                    "Label": "Debt Securities",
+					"Weight" : 1.0,
+					"Child": [
+						{
+						 "Id": "ds_1",
+						 "Label": "Senior Unsecured Debt Securities",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "ds_2",
+						 "Label": "Subordinated Debt Securities",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "ds_3",
+						 "Label": "Equity Market Capitalization",
+						 "Weight" : 1.0
+						}
+					]
+                }
+            ]
+        }, {
+            "Id": "complexity",
+            "Label": "Complexity Score",
+			"Weight" : 1.0,
+            "Child": [
+                {
+                    "Id": "complexity_c",
+                    "Label": "Complexity-Complexity Score",
+					"Weight" : 1.0,
+					"Child": [
+						{
+						 "Id": "c_1",
+						 "Label": "OTC Derivative",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "c_2",
+						 "Label": "Securities",
+						 "Weight" : 1.0
+						}
+					]
+                }, {
+                    "Id": "complexity_cs",
+                    "Label": "Country Specific Score",
+					"Weight" : 1.0,
+					"Child": [
+						{
+						 "Id": "cs_1",
+						 "Label": "Garansi",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "cs_2",
+						 "Label": "LC",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "cs_3",
+						 "Label": "Pangsa SBN",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "cs_4",
+						 "Label": "Rek DPK",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "cs_5",
+						 "Label": "Fas Kredit",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "cs_6",
+						 "Label": "KC DN",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "cs_7",
+						 "Label": "KC LN",
+						 "Weight" : 1.0
+						}
+					]
+                }, {
+                    "Id": "complexity_sub",
+                    "Label": "Substitutability Score",
+					"Weight" : 1.0,
+					"Child": [
+						{
+						 "Id": "sub_1",
+						 "Label": "Nilai RTGS",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "sub_2",
+						 "Label": "Nilai SKNBI",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "sub_3",
+						 "Label": "Volume RTGS",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "sub_4",
+						 "Label": "Volume SKNBI",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "sub_5",
+						 "Label": "Kustodian NIlai",
+						 "Weight" : 1.0
+						}, {
+						 "Id": "sub_6",
+						 "Label": "Kustodian Volume",
+						 "Weight" : 1.0
+						}
+					]
+                }
+            ]
+        }
+    ]
+}

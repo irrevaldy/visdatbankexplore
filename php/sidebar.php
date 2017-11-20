@@ -23,9 +23,9 @@
         </form>
         <?php
         if(isset($_POST['submito'])){
-        $_SESSION['kelkomponen'] = 'dsibscore';
-        $_SESSION['kelkepemilikan'] = 'All';
-        $_SESSION['kelbuku'] = 'All';
+        $_SESSION['kelkomponen'] = 'dsib_score';
+        $_SESSION['ownership'] = 'All';
+        $_SESSION['buku'] = 'All';
         $_SESSION['dsibflag'] = 'All';
         $_SESSION['waktu'] = date('Y-m');
         $_SESSION['month'] = date('m');
@@ -65,15 +65,15 @@
     </li>
     <li class="navigation_item" id="kelkepemilikan">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <select name="kelkepemilikan[]" onchange="this.form.submit();" style="color:black">
-      <?php echo get_radio_buttons($_SESSION['kelkepemilikan']); ?>
+        <select name="ownership[]" onchange="this.form.submit();" style="color:black">
+      <?php echo get_radio_buttons($_SESSION['ownership']); ?>
     </select>
       </form>
     </li>
     <li class="navigation_item" id="kelbuku">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <select name="kelbuku[]" onchange="this.form.submit();" style="color:black">
-      <?php echo get_radio_buttons2($_SESSION['kelbuku']); ?>
+        <select name="buku[]" onchange="this.form.submit();" style="color:black">
+      <?php echo get_radio_buttons2($_SESSION['buku']); ?>
     </select>
       </form>
     </li>
