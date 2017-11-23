@@ -8,7 +8,6 @@
     $month = $_GET['month'];
     $year = $_GET['year'];
 
-
     if($ownership =='All' && $buku == 'All' && $dsibflag == 'All')
     {
           $myquery = "SELECT id_bank, $attrib FROM bank where MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";

@@ -83,7 +83,7 @@ $query = "SELECT bank.id_bank, bank.timestamp, bank.nama_bank, bank.ownership, b
                     </table>
                     <table>
                       <tr>
-                        <form action="index.php?id_data=<?php echo $id_data; ?>" method="POST">
+                        <form action="index.php?id_data=<?php echo $id_data; ?>" method="GET">
                         <input type="submit" name="submito" value=" Visualize Data ">
                         </form>
                       </tr>
