@@ -67,7 +67,7 @@ svg.call(tip);
 
 var incomingdata;
 d3.json("php/data2.php?id=" + clickedId + "&ownership=" + selected_ownership  + "&buku=" + selected_buku + "&dsibflag=" +
- selected_dsibflag + "&month=" + selected_month + "&year=" + selected_year, function(error,data) {
+ selected_dsibflag + "&month=" + selected_month + "&year=" + selected_year + "&id_data=" + selected_id_data, function(error,data) {
   if(error) console.log("Error: data not loaded!");
   incomingdata = data;
 

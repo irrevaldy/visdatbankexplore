@@ -1,14 +1,16 @@
 <?php
     include "dbconnect.php";
 
-    $attrib = $_GET['id'];
+  /*  $attrib = $_GET['id'];
     $ownership = $_GET['ownership'];
     $buku = $_GET['buku'];
     $dsibflag = $_GET['dsibflag'];
     $month = $_GET['month'];
-    $year = $_GET['year'];
+    $year = $_GET['year'];*/
     $id_data = $_GET['id_data'];
 
+    $myquery ="SELECT id_bank, size, interconnect, complexity FROM bank WHERE id_data = '$id_data'";
+    /*
     if($ownership =='All' && $buku == 'All' && $dsibflag == 'All')
     {
           $myquery = "SELECT id_bank, $attrib FROM bank where MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year' and id_data = '$id_data'";
@@ -40,7 +42,7 @@
     elseif($ownership !='All' && $buku != 'All' && $dsibflag != 'All')
     {
           $myquery = "SELECT id_bank, $attrib FROM bank where ownership = '$ownership' and buku = '$buku' and dsibflag = '$dsibflag'and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year' and id_data = '$id_data'";
-    }
+    }*/
     $query = mysqli_query($server, $myquery);
 
     if ( ! $query ) {

@@ -1,4 +1,7 @@
-<?php include "php/session.php"; ?>
+<?php
+include "php/session.php";
+ include "php/dbconnect.php";
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,83 +16,99 @@
 	<!-- Fonts -->
 	<!-- Scripts -->
   <script src="js/close_menu.js"></script>
-  <script>
-var expanded = false;
-  function showCheckBoxes() {
-    var checkboxes = document.getElementById("checkboxes");
-    if(!expanded) {
-      checkboxes.style.display = "block";
-      expanded = true;
-    }
-    else {
-      checkboxes.style.display = "none";
-      expanded = false;
-    }
-  }
-    function chartfunc() {
-    var charttype = 'bar';
-    if(document.getElementById("bar").checked)
-    {
-      charttype = document.getElementById("bar").value;
-
-    }
-    else if(document.getElementById("line").checked)
-    {
-      charttype = document.getElementById("line").value;
-
-    }
-    document.write(chartype);
-  }
-  </script>
-  <script src="js/d3.tip.v0.6.3.js"></script>
 	<title>Visualisasi DSIB</title>
 </head>
 <body>
   <?php include "php/sidebar.php"; ?>
-  <?php include "php/header.php"; ?>
-  <script>
-  var clickedId = '<?php echo $_SESSION['kelkomponen']; ?>';
-  var selected_ownership= '<?php echo $_SESSION['ownership']; ?>';
-  var selected_buku = '<?php echo $_SESSION['buku']; ?>';
-  var selected_dsibflag = '<?php echo $_SESSION['dsibflag']; ?>';
-  var selected_month = '<?php echo $_SESSION['month']; ?>';
-  var selected_year = '<?php echo $_SESSION['year']; ?>';
-  </script>
-  <div class="container" style="width:800px;margin-top:90px;">
+<?php include "php/header.php"; ?>
+<?php
+ $query = "SELECT  * from snapshot_dsib order by periode asc";
+   $result = mysqli_query($server, $query);
+ ?>
+           <div class="container" style="width:800px;margin-top:90px;">
+                <h3 align="center">Import Excel File to Database</h3>
+                <form id="upload_xls" method="post" enctype="multipart/form-data">
+                     <div class="col-md-4">
+                          <input type="file" name="bank_file" style="margin-top:15px;" />
+                     </div>
+                     <div class="col-md-5">
+                          <input type="submit" name="upload" id="upload" value="Upload" style="margin-top:10px;" class="btn btn-info" />
+                     </div>
+                     <div style="clear:both"></div>
+                </form>
+                <br /><br /><br />
+                <div class="table-responsive" id="bank_table">
+                     <table class="table table-bordered" >
+                          <tr>
+                            <th width="5%">ID Data</th>
+                            <th width="25%">Periode</th>
+                            <th width="30%">Deskripsi</th>
+                            <th width="10%">N-cluster</th>
+                            <th width="20%">Threshold</th>
+                            <th width="5%">Cutoff Score</th>
+                            <th width="15%">DSIB Structure</th>
+                            <th width="5%">Modify</th>
+                        </tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result))
+                        {
+                          $id_data = $row["id_data"];
 
-    <?php
-    if ($_SESSION['charttype'] == 'bar')
-    {
-      ?>
-      <script type="text/javascript" src="js/bargraph.js"></script>
-    <?php
-    }
-    else
-    {
-      ?>
-      <script type="text/javascript" src="js/line.js"></script>
-    <?php
-    }
-    ?>
-  </div>
-  <div class="charto">
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-      <?php echo get_radio_buttons4($_SESSION['charttype']); ?>
-    </form>
-  </div>
-  <script>
-  var expanded = false;
-  function showCheckboxes() {
-    var checkboxes = document.getElementById("checkboxes");
-    if(!expanded) {
-      checkboxes.style.display = "block";
-      expanded = true;
-    }
-    else {
-      checkboxes.style.display = "none";
-      expanded = false;
-    }
-  }
-  </script>
+                        ?>
+                        <tr>
+                             <td><a href="detail.php?id=<?php echo $id_data; ?>"><?php echo $row["id_data"]; ?></a></td>
+                             <td><?php echo $row["periode"]; ?></td>
+                             <td><?php echo $row["deskripsi"]; ?></td>
+                             <td><?php echo $row["n_cluster"]; ?></td>
+                             <td><?php echo $row["threshold"]; ?></td>
+                             <td><?php echo $row["cutoff_score"]; ?></td>
+                             <?php if(empty($row["structure_json"]))
+                             {
+                               ?><td><a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "Upload Json"; ?></a></td>
+                          <?php
+                         }
+                             else
+                           {
+                             ?><td><a href=""onclick="window.open('viewjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "View"; ?></a><br>
+                               <a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')">Edit</a></td>
+                            <?php
+                           }
+                           ?>
+                               <td><a href="" onclick="window.open('deletejson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')">Delete</a></td>
+                        </tr>
+                      <?php } ?>
+                     </table>
+                </div>
+           </div>
+ <script>
+      $(document).ready(function(){
+           $('#upload_xls').on("submit", function(e){
+                e.preventDefault(); //form will not submitted
+                $.ajax({
+                     url:"import.php",
+                     method:"POST",
+                     data:new FormData(this),
+                     contentType:false,          // The content type used when sending data to the server.
+                     cache:false,                // To unable request pages to be cached
+                     processData:false,          // To send DOMDocument or non processed data file it is set to false
+                     success: function(data){
+                          if(data=='Error1')
+                          {
+                               alert("Invalid File");
+                          }
+                          else if(data == "Error2")
+                          {
+                               alert("Please Select File");
+                          }
+                          else
+                          {
+                               $('#bank_table').html(data);
+                          }
+                     }
+                })
+           });
+      });
+ </script>
+</div>
 </body>
 </html>

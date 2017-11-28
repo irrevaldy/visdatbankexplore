@@ -36,7 +36,7 @@ path {
   font-weight: bold;
   padding: 6px;
   background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  color: #black;
   border-radius: 2px;
 
 }
@@ -74,4 +74,16 @@ path {
 .charto
 {
   margin-left: 1200px;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.tooltip{
+  text-anchor: middle;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  fill:black;
 }

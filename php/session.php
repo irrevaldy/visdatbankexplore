@@ -165,4 +165,10 @@ if(isset($_POST['charttype']))
   $selected_charttype= $_POST['charttype'][0];
   $_SESSION['charttype'] = $selected_charttype;
 }
+
+if(isset($_POST['id_data']))
+{
+  $selected_id_data = $_POST['id_data'];
+  $_SESSION['id_data'] = $selected_id_data;
+}
 ?>

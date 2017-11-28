@@ -3,10 +3,10 @@
   <i class="fa fa-times"></i>
   <ul class="navigation_section" >
     <li class="navigation_item" id="profile">
-      <a href="upload.php">Upload Data</a>
+      <a href="index.php">Upload Data</a>
     </li>
     <li class="navigation_item" id="profile" selected>
-      <a href="index.php">Visualisasi</a>
+      <a href="visualisasi.php">Visualisasi</a>
     </li>
     <li class="navigation_item" id="profile">
       <a href="index2.php">Simulasi</a>
@@ -57,7 +57,7 @@
     </form>
   </li>-->
     <li class="navigation_item" id="kelkomponen">
-      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+      <form action="<?php echo $_SERVER['PHP_SELF'],'?id_data='.$id_data; ?>" method="POST">
         <select id="kelkomponenn" name="kelkomponen[]" onchange="this.form.submit(); getClickedID();" style="color:black">
       <?php echo get_radio_buttons0($_SESSION['kelkomponen']); ?>
     </select>
