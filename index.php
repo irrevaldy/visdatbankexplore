@@ -47,7 +47,7 @@ include "php/session.php";
                             <th width="20%">Threshold</th>
                             <th width="5%">Cutoff Score</th>
                             <th width="15%">DSIB Structure</th>
-                            <th width="5%">Modify</th>
+                            <th width="5%">Delete Row</th>
                         </tr>
                         <?php
                         while($row = mysqli_fetch_array($result))
@@ -70,7 +70,7 @@ include "php/session.php";
                              else
                            {
                              ?><td><a href=""onclick="window.open('viewjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "View"; ?></a><br>
-                               <a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')">Edit</a></td>
+                               <a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')">Reupload</a></td>
                             <?php
                            }
                            ?>

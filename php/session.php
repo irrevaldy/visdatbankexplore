@@ -1,4 +1,6 @@
 <?php
+include "dbconnect.php";
+
 session_start();
 
 if(empty($_SESSION['kelkomponen']))
@@ -32,6 +34,10 @@ if(empty($_SESSION['year']))
 if(empty($_SESSION['chartype']))
 {
   $_SESSION['charttype'] = 'bar';
+}
+if(empty($_SESSION['id_data']))
+{
+  $_SESSION['id_data'] = 'SIM_20171130_1.2';
 }
 
 function get_radio_buttons0($select)

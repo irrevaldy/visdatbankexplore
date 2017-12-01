@@ -1,15 +1,15 @@
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
+var margin = {top: 50, right: 20, bottom: 100, left: 40},
     width = 1200 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 600 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+    .rangeRoundBands([0, width], .3);
 
 var y = d3.scale.linear()
     .rangeRound([height, 0]);
 
 var color = d3.scale.ordinal()
-    .range(["#a05d56", "#d0743c", "#ff8c00"]);
+    .range(["#98abc5","#6b486b","#ff8c00"]);
 
 var xAxis = d3.svg.axis()
     .scale(x)
@@ -20,11 +20,20 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .tickFormat(d3.format(".2s"));
 
+var tip = d3.tip()
+  .attr("class", "d3-tip")
+  .offset([-10, 0])
+  .html(function(d) {
+    return "Bank ID: " + d.mybank + "<br>" + d.name + ": " + (d.y1 - d.y0);
+  });
+
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
 
 var active_link = "0"; //to control legend selections and hover
 var legendClicked; //to control legend selections
@@ -33,16 +42,16 @@ var legendClassArray_orig = []; //orig (with spaces)
 var sortDescending; //if true, bars are sorted by height in descending order
 var restoreXFlag = false; //restore order of bars back to original
 
-
 //disable sort checkbox
-/*d3.select("label")
+d3.select("label")
   .select("input")
-  //.property("disabled", true)
-  //.property("checked", false);*/
+  .property("disabled", true)
+  .property("checked", false);
 
-  d3.json("php/data.php?id_data=" + selected_id_data, function(error,data)
+d3.json("php/data.php?id_data=" + selected_id_data, function(error,data)
   {
     if(error) throw error;
+
 
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "id_bank"; }));
 
@@ -61,7 +70,7 @@ var restoreXFlag = false; //restore order of bars back to original
         y_corrected: 0
       };
       });
-    d.total = d.component[d.component.length - 1].y1;
+    d.total = (d.component[d.component.length - 1].y1) / 3;
 
   });
 
@@ -74,19 +83,19 @@ var restoreXFlag = false; //restore order of bars back to original
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+      //.call(xAxis);
 
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
     .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr("transform", "rotate(0)")
+      .attr("y", -6)
+      .attr("dy", ".31em")
       .style("text-anchor", "end")
       .text("Score");
 
-  var state = svg.selectAll(".state")
+  var id_bank = svg.selectAll(".id_bank")
       .data(data)
     .enter().append("g")
       .attr("class", "g")
@@ -94,18 +103,20 @@ var restoreXFlag = false; //restore order of bars back to original
       //.attr("transform", function(d) { return "translate(" + x(d.State) + ",0)"; })
 
    height_diff = 0;  //height discrepancy when calculating h based on data vs y(d.y0) - y(d.y1)
-   state.selectAll("rect")
+   id_bank.selectAll("rect")
       .data(function(d) {
         return d.component;
       })
     .enter().append("rect")
       .attr("width", x.rangeBand())
       .attr("y", function(d) {
-        height_diff = height_diff + y(d.y0) - y(d.y1) - (y(0) - y(d.value));
+        height_diff = height_diff + (y(d.y0) - y(d.y1) - (y(0) - y(d.value)) / 3);
         y_corrected = y(d.y1) + height_diff;
         d.y_corrected = y_corrected //store in d for later use in restorePlot()
 
         if (d.name === "complexity") height_diff = 0; //reset for next d.mystate
+
+
 
         return y_corrected;
         // return y(d.y1);  //orig, but not accurate
@@ -115,7 +126,7 @@ var restoreXFlag = false; //restore order of bars back to original
         })
       .attr("height", function(d) {
         //return y(d.y0) - y(d.y1); //heights calculated based on stacked values (inaccurate)
-        return y(0) - y(d.value); //calculate height directly from value in csv file
+        return (y(0) - y(d.value)) / 3; //calculate height directly from value in csv file
       })
       .attr("class", function(d) {
         classLabel = d.name.replace(/\s/g, ''); //remove spaces
@@ -123,8 +134,12 @@ var restoreXFlag = false; //restore order of bars back to original
       })
       .style("fill", function(d) { return color(d.name); });
 
-  state.selectAll("rect")
-       .on("mouseover", function(d){
+  id_bank.selectAll("rect")
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
+
+
+       /*.on("mouseover", function(d){
 
           var delta = d.y1 - d.y0;
           var xPos = parseFloat(d3.select(this).attr("x"));
@@ -144,7 +159,7 @@ var restoreXFlag = false; //restore order of bars back to original
           svg.select(".tooltip").remove();
           d3.select(this).attr("stroke","pink").attr("stroke-width",0.2);
 
-        })
+        })*/
 
 
   var legend = svg.selectAll(".legend")
@@ -198,7 +213,7 @@ var restoreXFlag = false; //restore order of bars back to original
 
             //enable sort checkbox
             d3.select("label").select("input").property("disabled", false)
-            d3.select("label").style("color", "black")
+            d3.select("label").style("color", "yellow")
             //sort the bars if checkbox is clicked
             d3.select("input").on("change", change);
 
@@ -240,12 +255,13 @@ var restoreXFlag = false; //restore order of bars back to original
 
       });
 
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
+      legend.append("text")
+          .attr("x", width - 24)
+          .attr("y", 9)
+          .attr("dy", ".35em")
+          .style("text-anchor", "end")
+          .text(function(d) {
+            return d; });
 
   // restore graph after a single selection
   function restorePlot(d) {
@@ -293,7 +309,7 @@ var restoreXFlag = false; //restore order of bars back to original
           .style("opacity", 0);
 
     //lower the bars to start on x-axis
-    state.selectAll("rect").forEach(function (d, i) {
+    id_bank.selectAll("rect").forEach(function (d, i) {
 
       //get height and y posn of base bar and selected bar
       h_keep = d3.select(d[idx]).attr("height");
@@ -331,7 +347,7 @@ var restoreXFlag = false; //restore order of bars back to original
         .map(function(d,i) { return d.id_bank; }))
         .copy();
 
-    state.selectAll(".class" + active_link)
+    id_bank.selectAll(".class" + active_link)
          .sort(function(a, b) {
             return x0(a.mybank) - x0(b.mybank);
           });
@@ -343,7 +359,7 @@ var restoreXFlag = false; //restore order of bars back to original
     transition.selectAll(".class" + active_link)
       .delay(delay)
       .attr("x", function(d) {
-        return x0(d.mystate);
+        return x0(d.mybank);
       });
 
     //sort x-labels accordingly

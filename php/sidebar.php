@@ -8,16 +8,16 @@
     <li class="navigation_item" id="profile" selected>
       <a href="visualisasi.php">Visualisasi</a>
     </li>
-    <li class="navigation_item" id="profile">
+    <!--<li class="navigation_item" id="profile">
       <a href="index2.php">Simulasi</a>
-    </li>
+    </li>-->
     <!--<li class="navigation_item" id="profile">
       <a href="index.php">Clustering</a>
     </li>-->
     <li class="navigation_item" id="sort">
-      <label><input type="checkbox">Sort Values</label>
+  <label><input type="checkbox">Sort Values</label>
     </li>
-    <li class="navigation_item" id="destroysession" style="color:black">
+    <!--<li class="navigation_item" id="destroysession" style="color:black">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <input type="submit" name="submito" value=" Reset Filter ">
         </form>
@@ -33,7 +33,7 @@
         $_SESSION['charttype'] = 'bar';
         }
         ?>
-    </li>
+    </li>-->
   <!-- <li class="navigation_item" id="perbank" >
     <form>
       <div class="multiselect">
@@ -56,7 +56,7 @@
       </div>
     </form>
   </li>-->
-    <li class="navigation_item" id="kelkomponen">
+  <!--  <li class="navigation_item" id="kelkomponen">
       <form action="<?php echo $_SERVER['PHP_SELF'],'?id_data='.$id_data; ?>" method="POST">
         <select id="kelkomponenn" name="kelkomponen[]" onchange="this.form.submit(); getClickedID();" style="color:black">
       <?php echo get_radio_buttons0($_SESSION['kelkomponen']); ?>
@@ -76,7 +76,7 @@
       <?php echo get_radio_buttons2($_SESSION['buku']); ?>
     </select>
       </form>
-    </li>
+    </li>-->
     <!--<li class="navigation_item" id="dsibflag">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <select name="dsibflag[]" onchange="this.form.submit();" style="color:black">
@@ -84,11 +84,11 @@
     </select>
       </form>
     </li>-->
-    <li class="navigation_item" id="waktu">
+  <!--  <li class="navigation_item" id="waktu">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <label>Month</label>
         <input style="color:black"  onchange="this.form.submit();" type="month" value="<?php echo $_SESSION['year'] ?>-<?php echo $_SESSION['month'] ?>" name="waktu">
       </form>
-    </li>
+    </li-->
   </ul>
 </div><!-- End of sidebar -->
