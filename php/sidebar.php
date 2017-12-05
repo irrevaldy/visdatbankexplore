@@ -14,10 +14,15 @@
     <!--<li class="navigation_item" id="profile">
       <a href="index.php">Clustering</a>
     </li>-->
-    <li class="navigation_item" id="sort">
-  <label><input type="checkbox">Sort Values</label>
-    </li>
-    <!--<li class="navigation_item" id="destroysession" style="color:black">
+    <?php
+    if (strpos($_SERVER['SCRIPT_NAME'], 'visualisasi.php') !== false)
+    {
+      ?><li class="navigation_item" id="sort">
+        <label><input type="checkbox">Sort Values</label>
+          </li>
+
+
+    <li class="navigation_item" id="destroysession" style="color:black">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <input type="submit" name="submito" value=" Reset Filter ">
         </form>
@@ -33,7 +38,7 @@
         $_SESSION['charttype'] = 'bar';
         }
         ?>
-    </li>-->
+    </li>
   <!-- <li class="navigation_item" id="perbank" >
     <form>
       <div class="multiselect">
@@ -84,11 +89,36 @@
     </select>
       </form>
     </li>-->
-  <!--  <li class="navigation_item" id="waktu">
+  <li class="navigation_item" id="waktu">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <label>Month</label>
         <input style="color:black"  onchange="this.form.submit();" type="month" value="<?php echo $_SESSION['year'] ?>-<?php echo $_SESSION['month'] ?>" name="waktu">
       </form>
-    </li-->
+    </li>
+    <li class="navigation_item" id="id_data">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <select name="id_data" onchange="this.form.submit();" style="color:black">
+        <?php
+        $query = "SELECT snapshot_dsib.id_data FROM snapshot_dsib";
+       $get=mysqli_query($server, $query);
+       $option = '';
+       while($row = mysqli_fetch_array($get))
+      {
+        if($row['id_data'] == $_SESSION['id_data'])
+        {
+          ?> <option selected value = "<?php echo $row['id_data']; ?>"> <?php echo $row['id_data']; ?></option> <?php
+        }
+        else
+        {
+          ?> <option value = "<?php echo $row['id_data']; ?>"> <?php echo $row['id_data']; ?></option> <?php
+        }
+      }
+      ?>
+      </select>
+      </form>
+    </li>
+    <?php
+    }
+    ?>
   </ul>
 </div><!-- End of sidebar -->

@@ -37,7 +37,7 @@ if(empty($_SESSION['chartype']))
 }
 if(empty($_SESSION['id_data']))
 {
-  $_SESSION['id_data'] = 'SIM_20171130_1.2';
+  $_SESSION['id_data'] = 'Please Fill Data';
 }
 
 function get_radio_buttons0($select)

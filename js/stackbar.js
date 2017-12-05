@@ -48,7 +48,7 @@ d3.select("label")
   .property("disabled", true)
   .property("checked", false);
 
-d3.json("php/data.php?id_data=" + selected_id_data, function(error,data)
+d3.json("php/data.php?id_data=" + selected_id_data + "&month=" + selected_month + "&year=" + selected_year, function(error,data)
   {
     if(error) throw error;
 

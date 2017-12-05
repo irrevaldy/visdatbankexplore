@@ -4,12 +4,12 @@
   /*  $attrib = $_GET['id'];
     $ownership = $_GET['ownership'];
     $buku = $_GET['buku'];
-    $dsibflag = $_GET['dsibflag'];
+    $dsibflag = $_GET['dsibflag'];*/
     $month = $_GET['month'];
-    $year = $_GET['year'];*/
+    $year = $_GET['year'];
     $id_data = $_GET['id_data'];
 
-    $myquery ="SELECT id_bank, size, interconnect, complexity FROM bank WHERE id_data = '$id_data'";
+    $myquery ="SELECT id_bank, size, interconnect, complexity FROM bank WHERE id_data = '$id_data' and MONTH(timestamp) = '$month' and YEAR(timestamp) = '$year'";
     /*
     if($ownership =='All' && $buku == 'All' && $dsibflag == 'All')
     {

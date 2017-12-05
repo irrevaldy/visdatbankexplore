@@ -32,11 +32,12 @@ include "php/session.php";
                           <input type="file" name="bank_file" style="margin-top:15px;" />
                      </div>
                      <div class="col-md-5">
-                          <input type="submit" name="upload" id="upload" value="Upload" style="margin-top:10px;" class="btn btn-info" />
+                          <input type="submit" name="upload" id="upload" value="Upload" style="margin-top:10px;" class="btn btn-info" onclick="uploadFile()" />
                      </div>
                      <div style="clear:both"></div>
                 </form>
-                <br /><br /><br />
+
+                <br /><br /></br />
                 <div class="table-responsive" id="bank_table">
                      <table class="table table-bordered" >
                           <tr>

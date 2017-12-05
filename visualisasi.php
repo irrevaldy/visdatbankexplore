@@ -56,8 +56,8 @@ var expanded = false;
   var selected_year = '<?php echo $_SESSION['year']; ?>';
   var selected_id_data = '<?php echo $_SESSION['id_data'] ?>';
   </script>
-  <div class="container" style="width:800px;margin-top:90px;">
 
+  <div class="container" style="width:800px;margin-top:90px;">
     <script type="text/javascript" src="js/stackbar.js"></script>
     <!--<?php
     if ($_SESSION['charttype'] == 'bar')
@@ -72,9 +72,9 @@ var expanded = false;
       <script type="text/javascript" src="js/line.js"></script>
     <?php
     }
-    ?>
+    ?>-->
   </div>
-  <div class="charto">
+<!--  <div class="charto">
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
       <?php echo get_radio_buttons4($_SESSION['charttype']); ?>
     </form>
