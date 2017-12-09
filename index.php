@@ -19,8 +19,9 @@ include "php/session.php";
 	<title>Visualisasi DSIB</title>
 </head>
 <body>
+  <?php include "php/header.php"; ?>
   <?php include "php/sidebar.php"; ?>
-<?php include "php/header.php"; ?>
+
 <?php
  $query = "SELECT  * from snapshot_dsib order by periode asc";
    $result = mysqli_query($server, $query);
@@ -45,10 +46,10 @@ include "php/session.php";
                             <th width="25%">Periode</th>
                             <th width="30%">Deskripsi</th>
                             <th width="10%">N-cluster</th>
-                            <th width="20%">Threshold</th>
+                            <th width="20%">Cluster Border</th>
                             <th width="5%">Cutoff Score</th>
                             <th width="15%">DSIB Structure</th>
-                            <th width="5%">Delete Row</th>
+                            <th width="5%">Hapus Snapshot</th>
                         </tr>
                         <?php
                         while($row = mysqli_fetch_array($result))
@@ -65,7 +66,7 @@ include "php/session.php";
                              <td><?php echo $row["cutoff_score"]; ?></td>
                              <?php if(empty($row["structure_json"]))
                              {
-                               ?><td><a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "Upload Json"; ?></a></td>
+                               ?><td><a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "Upload Indikator"; ?></a></td>
                           <?php
                          }
                              else
@@ -110,6 +111,21 @@ include "php/session.php";
            });
       });
  </script>
+
 </div>
+<script>
+var expanded = false;
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if(!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  }
+  else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
 </body>
 </html>

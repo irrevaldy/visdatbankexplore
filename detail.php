@@ -19,10 +19,12 @@ include "php/session.php";
 	<title>Visualisasi DSIB</title>
 </head>
 <body>
-  <?php include "php/sidebar.php"; ?>
 <?php include "php/header.php"; ?>
+  <?php include "php/sidebar.php"; ?>
 <?php
 $id_data = $_GET['id'];
+$_SESSION['id_data'] = $id_data;
+//echo $_SESSION['id_data'];
 $quer = "SELECT * from snapshot_dsib where snapshot_dsib.id_data = '$id_data'";
 $query = "SELECT bank.id_bank, bank.timestamp, bank.nama_bank, bank.ownership, bank.buku, bank.dsib_score, bank.size, bank.s1, bank.s2, bank.s3, bank.s4, bank.s5, bank.s6, bank.interconnect, bank.ifsa, bank.if_1, bank.if_2, bank.if_3, bank.if_4, bank.if_5, bank.if_6, bank.if_7, bank.if_8, bank.if_9, bank.if_10, bank.if_11, bank.if_12, bank.if_13, bank.ifsl, bank.il_1, bank.il_2, bank.il_3, bank.il_4, bank.il_5, bank.il_6, bank.ds, bank.ds_1, bank.ds_2, bank.ds_3, bank.complexity, bank.complexity_c, bank.c_1, bank.c_2, bank.complexity_cs, bank.cs_1, bank.cs_2, bank.cs_3, bank.cs_4, bank.cs_5, bank.cs_6, bank.cs_7, bank.complexity_sub, bank.sub_1, bank.sub_2, bank.sub_3, bank.sub_4, bank.sub_5, bank.sub_6, bank.car, bank.npl_rasio, bank.assets, bank.kredit, bank.npl_nominal, bank.deposit, bank.ldr FROM bank, snapshot_dsib WHERE bank.id_data = snapshot_dsib.id_data and snapshot_dsib.id_data = '$id_data' order by bank.timestamp desc, bank.id_bank asc";$result = mysqli_query($server, $query);
    $resulto = mysqli_query($server, $quer);
@@ -68,14 +70,14 @@ $query = "SELECT bank.id_bank, bank.timestamp, bank.nama_bank, bank.ownership, b
                       <tr border=0>
                         <td>Json Structure</td>
                         <td>:</td>
-                        <?php if(empty($row["structure_json"]))
+                        <?php if(empty($rowi["structure_json"]))
                         {
-                          ?><td><a href=""><?php echo "Upload Json"; ?></a></td>
+                          ?><td><a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "Upload Indikator"; ?></a></td>
                      <?php
                     }
                         else
                       {
-                        ?><td><a href=""><?php echo "View Json"; ?></a></td>
+                        ?><td><a href=""onclick="window.open('viewjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "View Json Structure"; ?></a></td>
                        <?php
                       }
                       ?>
@@ -106,7 +108,7 @@ $query = "SELECT bank.id_bank, bank.timestamp, bank.nama_bank, bank.ownership, b
                                        <th width="5%">total KKon</th>
                                          <th width="5%">Posisi PSD</th>
                                            <th width="5%">Potential FE</th>
-                                           <th width="5%">Interconnectedness</th>
+                                           <th width="5%">Interconnected</th>
                                              <th width="5%">IFSA Score</th>
                                                <th width="5%">Penempatan PBLKMD</th>
                                                <th width="5%">Kredit BDL</th>

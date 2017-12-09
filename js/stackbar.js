@@ -33,6 +33,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
 svg.call(tip);
 
 var active_link = "0"; //to control legend selections and hover
@@ -48,10 +49,9 @@ d3.select("label")
   .property("disabled", true)
   .property("checked", false);
 
-d3.json("php/data.php?id_data=" + selected_id_data + "&month=" + selected_month + "&year=" + selected_year, function(error,data)
-  {
-    if(error) throw error;
-
+  d3.json("php/data.php?ownership=" + selected_ownership  + "&buku=" + selected_buku + "&dsib_flag=" + selected_dsib_flag + "&month=" + selected_month + "&year=" + selected_year + "&id_data=" + selected_id_data + "&carminvar=" + selected_carminvar + "&carmaxvar=" + selected_carmaxvar + "&nplrasiominvar=" + selected_nplrasiominvar + "&nplrasiomaxvar=" + selected_nplrasiomaxvar + "&assetsminvar=" + selected_assetsminvar + "&assetsmaxvar=" + selected_assetsmaxvar + "&kreditminvar=" + selected_kreditminvar + "&kreditmaxvar=" + selected_kreditmaxvar + "&nplnominalminvar=" + selected_nplnominalminvar + "&nplnominalmaxvar=" + selected_nplnominalmaxvar+ "&depositminvar=" + selected_depositminvar + "&depositmaxvar=" + selected_depositmaxvar+ "&ldrminvar=" + selected_ldrminvar + "&ldrmaxvar=" + selected_ldrmaxvar, function(error,data)
+    {
+      if(error) throw error;
 
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "id_bank"; }));
 
@@ -80,10 +80,19 @@ d3.json("php/data.php?id_data=" + selected_id_data + "&month=" + selected_month 
   x.domain(data.map(function(d) { return d.id_bank; }));
   y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
+  var countdata =svg.selectAll("text").data(data).enter().size();
+
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      //.call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-65)"
+                });
 
   svg.append("g")
       .attr("class", "y axis")
@@ -364,15 +373,127 @@ d3.json("php/data.php?id_data=" + selected_id_data + "&month=" + selected_month 
 
     //sort x-labels accordingly
     transition.select(".x.axis")
-        .call(xAxis)
+        //.call(xAxis)
         .selectAll("g")
         .delay(delay);
 
 
     transition.select(".x.axis")
-        .call(xAxis)
+        //.call(xAxis)
       .selectAll("g")
         .delay(delay);
   }
+
+
+  // Set-up the export button
+  d3.select('#saveButton').on('click', function(){
+  	var svgString = getSVGString(svg.node());
+  	svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
+
+  	function save( dataBlob, filesize ){
+  		saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
+  	}
+  });
+
+  // Below are the functions that handle actual exporting:
+  // getSVGString ( svgNode ) and svgString2Image( svgString, width, height, format, callback )
+  function getSVGString( svgNode ) {
+  	svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
+  	var cssStyleText = getCSSStyles( svgNode );
+  	appendCSS( cssStyleText, svgNode );
+
+  	var serializer = new XMLSerializer();
+  	var svgString = serializer.serializeToString(svgNode);
+  	svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
+  	svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
+
+  	return svgString;
+
+  	function getCSSStyles( parentElement ) {
+  		var selectorTextArr = [];
+
+  		// Add Parent element Id and Classes to the list
+  		selectorTextArr.push( '#'+parentElement.id );
+  		for (var c = 0; c < parentElement.classList.length; c++)
+  				if ( !contains('.'+parentElement.classList[c], selectorTextArr) )
+  					selectorTextArr.push( '.'+parentElement.classList[c] );
+
+  		// Add Children element Ids and Classes to the list
+  		var nodes = parentElement.getElementsByTagName("*");
+  		for (var i = 0; i < nodes.length; i++) {
+  			var id = nodes[i].id;
+  			if ( !contains('#'+id, selectorTextArr) )
+  				selectorTextArr.push( '#'+id );
+
+  			var classes = nodes[i].classList;
+  			for (var c = 0; c < classes.length; c++)
+  				if ( !contains('.'+classes[c], selectorTextArr) )
+  					selectorTextArr.push( '.'+classes[c] );
+  		}
+
+  		// Extract CSS Rules
+  		var extractedCSSText = "";
+  		for (var i = 0; i < document.styleSheets.length; i++) {
+  			var s = document.styleSheets[i];
+
+  			try {
+  			    if(!s.cssRules) continue;
+  			} catch( e ) {
+  		    		if(e.name !== 'SecurityError') throw e; // for Firefox
+  		    		continue;
+  		    	}
+
+  			var cssRules = s.cssRules;
+  			for (var r = 0; r < cssRules.length; r++) {
+  				if ( contains( cssRules[r].selectorText, selectorTextArr ) )
+  					extractedCSSText += cssRules[r].cssText;
+  			}
+  		}
+
+
+  		return extractedCSSText;
+
+  		function contains(str,arr) {
+  			return arr.indexOf( str ) === -1 ? false : true;
+  		}
+
+  	}
+
+  	function appendCSS( cssText, element ) {
+  		var styleElement = document.createElement("style");
+  		styleElement.setAttribute("type","text/css");
+  		styleElement.innerHTML = cssText;
+  		var refNode = element.hasChildNodes() ? element.children[0] : null;
+  		element.insertBefore( styleElement, refNode );
+  	}
+  }
+
+
+  function svgString2Image( svgString, width, height, format, callback ) {
+  	var format = format ? format : 'png';
+
+  	var imgsrc = 'data:image/svg+xml;base64,'+ btoa( unescape( encodeURIComponent( svgString ) ) ); // Convert SVG string to data URL
+
+  	var canvas = document.createElement("canvas");
+  	var context = canvas.getContext("2d");
+
+  	canvas.width = width;
+  	canvas.height = height;
+
+  	var image = new Image();
+  	image.onload = function() {
+  		context.clearRect ( 0, 0, width, height );
+  		context.drawImage(image, 0, 0, width, height);
+
+  		canvas.toBlob( function(blob) {
+  			var filesize = Math.round( blob.length/1024 ) + ' KB';
+  			if ( callback ) callback( blob, filesize );
+  		});
+
+
+  	};
+
+  	image.src = imgsrc;
+}
 
 });

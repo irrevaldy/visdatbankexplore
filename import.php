@@ -36,7 +36,8 @@ require_once 'php/Classes/PHPExcel.php';
          $timestampold = $excel->getActiveSheet()->getCell('A'.$i)->getFormattedValue();
          $old_date_timestamp = strtotime($timestampold);
          $timestamp = date('Y-m-d h:m:s', $old_date_timestamp);
-         $idbank = $excel->getActiveSheet()->getCell('B'.$i)->getFormattedValue();
+         $idban = $excel->getActiveSheet()->getCell('B'.$i)->getFormattedValue();
+         $idbank = sprintf("%03s", $idban);
          $namabank = $excel->getActiveSheet()->getCell('C'.$i)->getFormattedValue();
          $ownership = $excel->getActiveSheet()->getCell('D'.$i)->getFormattedValue();
          $buku = $excel->getActiveSheet()->getCell('E'.$i)->getFormattedValue();
@@ -111,7 +112,7 @@ require_once 'php/Classes/PHPExcel.php';
      $result2 = mysqli_query($server, $query2);
      ?>
 
-     
+
           <div class="table-responsive" id="bank_table">
                <table class="table table-bordered" >
                     <tr>
@@ -119,10 +120,10 @@ require_once 'php/Classes/PHPExcel.php';
                       <th width="25%">Periode</th>
                       <th width="30%">Deskripsi</th>
                       <th width="10%">N-cluster</th>
-                      <th width="20%">Threshold</th>
+                      <th width="20%">Cluster Border</th>
                       <th width="5%">Cutoff Score</th>
                       <th width="15%">DSIB Structure</th>
-                      <th width="5%">Modify</th>
+                      <th width="5%">Hapus Snapshot</th>
                   </tr>
                   <?php
                   while($row = mysqli_fetch_array($result2))
@@ -145,7 +146,7 @@ require_once 'php/Classes/PHPExcel.php';
                        else
                      {
                        ?><td><a href=""onclick="window.open('viewjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')"><?php echo "View"; ?></a><br>
-                         <a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')">Edit</a></td>
+                         <a href="" onclick="window.open('uploadjson.php?id_data=<?php echo $id_data; ?>','_blank','height=400,width=800,top=200,left=250')">Reupload</a></td>
                       <?php
                      }
                      ?>
