@@ -76,10 +76,6 @@ path {
   margin-left: 1200px;
 }
 
-.x.axis path {
-  display: none;
-}
-
 .tooltip{
   text-anchor: middle;
   font-family: sans-serif;

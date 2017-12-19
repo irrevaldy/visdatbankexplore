@@ -1,4 +1,4 @@
-var margin = {top: 50, right: 20, bottom: 100, left: 40},
+var margin = {top: 70, right: 20, bottom: 100, left: 40},
     width = 1200 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
@@ -24,17 +24,41 @@ var tip = d3.tip()
   .attr("class", "d3-tip")
   .offset([-10, 0])
   .html(function(d) {
-    return "Bank ID: " + d.mybank + "<br>" + d.name + ": " + (d.y1 - d.y0);
+    if (d.name == 'interconnect')
+    {
+      return "Bank ID: " + d.mybank + "<br>" + d.name.charAt(0).toUpperCase() + d.name.slice(1) + 'edness' + ": " + (d.y1 - d.y0) + "<br>" + "CAR : " + d.car  + "<br>" + "LDR : " + d.ldr  + "<br>" + "NPL Rasio : " + d.npl_rasio;
+    }
+    else
+    {
+        return "Bank ID: " + d.mybank + "<br>" + d.name.charAt(0).toUpperCase() + d.name.slice(1) + ": " + (d.y1 - d.y0) + "<br>" + "Car : " + d.car  + "<br>" + "LDR : " + d.ldr  + "<br>" + "NPL Rasio : " + d.npl_rasio;
+    }
+
   });
 
+/*
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
 svg.call(tip);
+*/
+var svgY = d3.select('#verticalSVG')
+  .append('svg')
+  .attr('height', height + margin.top + margin.bottom)
+  .attr('width', 70)
+  .append('g')
+  .attr('transform', "translate(" + margin.left + "," + margin.top + ")");
+
+var svgX = d3.select('#horizontalSVG')
+    .append('svg')
+    .attr('height', height + margin.top + margin.bottom)
+    .attr('width', 1200)
+    .append('g')
+    .attr('transform', "translate(0," + margin.top + ")");
+
+svgX.call(tip);
 
 var active_link = "0"; //to control legend selections and hover
 var legendClicked; //to control legend selections
@@ -53,10 +77,13 @@ d3.select("label")
     {
       if(error) throw error;
 
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "id_bank"; }));
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "id_bank" && key !== "car" && key !== "ldr" && key !== "npl_rasio"; }));
 
   data.forEach(function(d) {
     var mybank = d.id_bank; //add to stock code
+    var car = d.car;
+    var ldr = d.ldr;
+    var npl_rasio = d.npl_rasio;
     var y0 = 0;
     //d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
     d.component = color.domain().map(function(name) {
@@ -64,6 +91,9 @@ d3.select("label")
       return {
         mybank:mybank,
         name: name,
+        car: car,
+        ldr: ldr,
+        npl_rasio: npl_rasio,
         y0: y0,
         y1: y0 += +d[name],
         value: d[name],
@@ -80,9 +110,9 @@ d3.select("label")
   x.domain(data.map(function(d) { return d.id_bank; }));
   y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
-  var countdata =svg.selectAll("text").data(data).enter().size();
+  var countdata =svgX.selectAll("text").data(data).enter().size();
 
-  svg.append("g")
+  svgX.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
@@ -94,17 +124,29 @@ d3.select("label")
                 return "rotate(-65)"
                 });
 
-  svg.append("g")
+    svgX.append("text")
+          .attr("y", 490)
+          .attr("x", 1170)
+          .attr("dx", "-.8em")
+          .attr("dy", ".25em")
+          .attr("transform", "rotate(0)" )
+          .attr("font-size", "12px")
+          .attr("font-weight", "bold")
+          .style("text-anchor", "end")
+          .text("Kode Bank");
+
+  svgY.append("g")
       .attr("class", "y axis")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(0)")
-      .attr("y", -6)
+      .attr("y", -8)
+      .attr("x", 25)
       .attr("dy", ".31em")
       .style("text-anchor", "end")
-      .text("Score");
+      .text("Skor DSIB");
 
-  var id_bank = svg.selectAll(".id_bank")
+  var id_bank = svgX.selectAll(".id_bank")
       .data(data)
     .enter().append("g")
       .attr("class", "g")
@@ -171,7 +213,7 @@ d3.select("label")
         })*/
 
 
-  var legend = svg.selectAll(".legend")
+  var legend = svgX.selectAll(".legend")
       .data(color.domain().slice().reverse())
     .enter().append("g")
       .attr("class", function (d) {
@@ -269,8 +311,17 @@ d3.select("label")
           .attr("y", 9)
           .attr("dy", ".35em")
           .style("text-anchor", "end")
-          .text(function(d) {
-            return d; });
+          .text(function(d)
+          {
+            if (d == 'interconnect')
+            {
+              return d.charAt(0).toUpperCase() + d.slice(1) + 'edness';
+            }
+            else
+            {
+              return d.charAt(0).toUpperCase() + d.slice(1);
+            }
+          });
 
   // restore graph after a single selection
   function restorePlot(d) {
@@ -361,7 +412,7 @@ d3.select("label")
             return x0(a.mybank) - x0(b.mybank);
           });
 
-    var transition = svg.transition().duration(750),
+    var transition = svgX.transition().duration(750),
         delay = function(d, i) { return i * 20; };
 
     //sort bars
@@ -383,117 +434,5 @@ d3.select("label")
       .selectAll("g")
         .delay(delay);
   }
-
-
-  // Set-up the export button
-  d3.select('#saveButton').on('click', function(){
-  	var svgString = getSVGString(svg.node());
-  	svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
-
-  	function save( dataBlob, filesize ){
-  		saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
-  	}
-  });
-
-  // Below are the functions that handle actual exporting:
-  // getSVGString ( svgNode ) and svgString2Image( svgString, width, height, format, callback )
-  function getSVGString( svgNode ) {
-  	svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
-  	var cssStyleText = getCSSStyles( svgNode );
-  	appendCSS( cssStyleText, svgNode );
-
-  	var serializer = new XMLSerializer();
-  	var svgString = serializer.serializeToString(svgNode);
-  	svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
-  	svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
-
-  	return svgString;
-
-  	function getCSSStyles( parentElement ) {
-  		var selectorTextArr = [];
-
-  		// Add Parent element Id and Classes to the list
-  		selectorTextArr.push( '#'+parentElement.id );
-  		for (var c = 0; c < parentElement.classList.length; c++)
-  				if ( !contains('.'+parentElement.classList[c], selectorTextArr) )
-  					selectorTextArr.push( '.'+parentElement.classList[c] );
-
-  		// Add Children element Ids and Classes to the list
-  		var nodes = parentElement.getElementsByTagName("*");
-  		for (var i = 0; i < nodes.length; i++) {
-  			var id = nodes[i].id;
-  			if ( !contains('#'+id, selectorTextArr) )
-  				selectorTextArr.push( '#'+id );
-
-  			var classes = nodes[i].classList;
-  			for (var c = 0; c < classes.length; c++)
-  				if ( !contains('.'+classes[c], selectorTextArr) )
-  					selectorTextArr.push( '.'+classes[c] );
-  		}
-
-  		// Extract CSS Rules
-  		var extractedCSSText = "";
-  		for (var i = 0; i < document.styleSheets.length; i++) {
-  			var s = document.styleSheets[i];
-
-  			try {
-  			    if(!s.cssRules) continue;
-  			} catch( e ) {
-  		    		if(e.name !== 'SecurityError') throw e; // for Firefox
-  		    		continue;
-  		    	}
-
-  			var cssRules = s.cssRules;
-  			for (var r = 0; r < cssRules.length; r++) {
-  				if ( contains( cssRules[r].selectorText, selectorTextArr ) )
-  					extractedCSSText += cssRules[r].cssText;
-  			}
-  		}
-
-
-  		return extractedCSSText;
-
-  		function contains(str,arr) {
-  			return arr.indexOf( str ) === -1 ? false : true;
-  		}
-
-  	}
-
-  	function appendCSS( cssText, element ) {
-  		var styleElement = document.createElement("style");
-  		styleElement.setAttribute("type","text/css");
-  		styleElement.innerHTML = cssText;
-  		var refNode = element.hasChildNodes() ? element.children[0] : null;
-  		element.insertBefore( styleElement, refNode );
-  	}
-  }
-
-
-  function svgString2Image( svgString, width, height, format, callback ) {
-  	var format = format ? format : 'png';
-
-  	var imgsrc = 'data:image/svg+xml;base64,'+ btoa( unescape( encodeURIComponent( svgString ) ) ); // Convert SVG string to data URL
-
-  	var canvas = document.createElement("canvas");
-  	var context = canvas.getContext("2d");
-
-  	canvas.width = width;
-  	canvas.height = height;
-
-  	var image = new Image();
-  	image.onload = function() {
-  		context.clearRect ( 0, 0, width, height );
-  		context.drawImage(image, 0, 0, width, height);
-
-  		canvas.toBlob( function(blob) {
-  			var filesize = Math.round( blob.length/1024 ) + ' KB';
-  			if ( callback ) callback( blob, filesize );
-  		});
-
-
-  	};
-
-  	image.src = imgsrc;
-}
 
 });

@@ -40,7 +40,7 @@ $get=mysqli_query($server, $query);
 $row = mysqli_fetch_array($get);
 if(empty($_SESSION['id_data']))
 {
-  $_SESSION['id_data'] = $row;
+  $_SESSION['id_data'] = $row[0];
 }
 /*
 $id_data = $_SESSION['id_data'];

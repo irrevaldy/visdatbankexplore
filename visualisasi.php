@@ -7,10 +7,7 @@
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script src="canvastoblob/js/canvas-to-blob.js"></script>
-	 <script src="filesaver/FileSaver.min.js"></script>
   <script type="text/javascript" src="js/d3.min.js"></script>
-
 	<!-- Stylesheets -->
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -46,11 +43,7 @@ var expanded = false;
     document.write(chartype);
   }
 </script>-->
-<style type="text/css">
- 		.blendCircle {
- 			mix-blend-mode: multiply;
- 		}
- 	</style>
+
 <script src="js/d3.tip.v0.6.3.js"></script>
 	<title>Visualisasi DSIB</title>
 </head>
@@ -95,28 +88,39 @@ if(isset($_POST['id_data']))
 
 </script>
 
+<div class="container" style="width:800px;margin-top:90px;">
 
-  <div class="container" style="width:800px;margin-top:90px;">
-    <script type="text/javascript" src="js/stackbar.js"></script>
-    <!--<?php
-    if ($_SESSION['charttype'] == 'bar')
-    {
-      ?>
-      <script type="text/javascript" src="js/stackbar.js"></script>
-    <?php
-    }
-    else
-    {
-      ?>
-      <script type="text/javascript" src="js/line.js"></script>
-    <?php
-    }
-    ?>-->
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div width="100px"></div>
+    <div id="verticalSVG" style="float:left">
+
+    </div>
+    <div id="horizontalSVG" style="overflow-x:scroll">
+
+    </div>
   </div>
-<!--  <div class="charto">
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-      <?php echo get_radio_buttons4($_SESSION['charttype']); ?>
-    </form>
-  </div>-->
+  <!--
+    <div class="container" style="width:800px;margin-top:90px;">
+      <script type="text/javascript" src="js/stackbar.js"></script>
+      <!--<?php
+      if ($_SESSION['charttype'] == 'bar')
+      {
+        ?>
+        <script type="text/javascript" src="js/stackbar.js"></script>
+      <?php
+      }
+      else
+      {
+        ?>
+        <script type="text/javascript" src="js/line.js"></script>
+      <?php
+      }
+      ?>
+    </div>-->
+<script type="text/javascript" src="js/stackbar.js"></script>
+
+
 </body>
 </html>

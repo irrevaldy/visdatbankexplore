@@ -1,3 +1,21 @@
+<script type="text/javascript">
+    var datefield=document.createElement("input")
+    datefield.setAttribute("type", "month")
+    if (datefield.type!="month"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+        document.write('<link href="js/jqueryui/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+        document.write('<script src="js/jqueryui/jquery.min.js"><\/script>\n')
+        document.write('<script src="js/jqueryui/jquery-ui.min.js"><\/script>\n')
+    }
+</script>
+
+<script>
+if (datefield.type!="month"){ //if browser doesn't support input type="date", initialize date picker widget:
+    jQuery(function($){ //on document.ready
+        $('#month').datepicker();
+    })
+}
+</script>
+
 <i class="fa fa-bars toggle_menu"></i>
 <div class="sidebar" height="100%">
   <i class="fa fa-times"></i>
@@ -92,7 +110,7 @@
   <li class="navigation_item" id="waktu">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <label>Periode</label>
-        <input style="color:black"  onchange="this.form.submit();" type="month" value="<?php echo $_SESSION['year'] ?>-<?php echo $_SESSION['month'] ?>" name="waktu">
+        <input style="color:black" id="month" onchange="this.form.submit();" type="month" value="<?php echo $_SESSION['year']; ?>-<?php echo $_SESSION['month']; ?>" name="waktu">
       </form>
     </li>
     <li class="navigation_item" id="id_data">
