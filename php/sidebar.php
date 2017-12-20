@@ -33,9 +33,7 @@ if (datefield.type!="month"){ //if browser doesn't support input type="date", in
       <li class="navigation_item" id="sort">
         <label><input type="checkbox">Sort Values</label>
           </li>
-          <li class="navigation_item" id="export">
-            <button id='saveButton'>Export to PNG</button>
-              </li>
+          
     <li class="navigation_item" id="destroysession" style="color:black">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <input type="submit" name="submito" value=" Reset Filter ">

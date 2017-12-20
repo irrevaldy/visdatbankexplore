@@ -101,6 +101,7 @@ if(isset($_POST['id_data']))
 
     </div>
   </div>
+</div>
   <!--
     <div class="container" style="width:800px;margin-top:90px;">
       <script type="text/javascript" src="js/stackbar.js"></script>
